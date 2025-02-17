@@ -9,6 +9,7 @@ const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat" });
 export const metadata: Metadata = {
   title: "Plamory",
   description: "Your memories, your way",
+  metadataBase: new URL("https://plamory.com"),
 };
 
 export default async function RootLayout({
