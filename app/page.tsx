@@ -1,3 +1,5 @@
+import LoginButton from "@/components/LoginLogoutButton";
+import UserGreetText from "@/components/UserGreetText";
 import Image from "next/image";
 
 export default function Plamory() {
@@ -7,6 +9,8 @@ export default function Plamory() {
       style={{ backgroundImage: "url(/images/gradient-bg.webp)" }}
     >
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+        <UserGreetText />
+        <LoginButton />
         <p className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-gray-950 sm:text-6xl font-caveat">
           Your memories, Your way!
         </p>
