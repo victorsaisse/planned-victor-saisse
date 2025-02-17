@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-export default function Home() {
+export default function Plamory() {
   return (
     <div
-      className="bg-gray-50 py-10 min-h-dvh bg-cover bg-center"
+      className="bg-gray-50 py-10 min-h-dvh bg-cover bg-center pt-24"
       style={{ backgroundImage: "url(/images/gradient-bg.webp)" }}
     >
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
