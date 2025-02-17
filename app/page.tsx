@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { redirect, useSearchParams } from "next/navigation";
 
-const handleLoginRedirect = () => {
+const useLoginRedirect = () => {
   const searchParams = useSearchParams();
   if (searchParams.get("code")) {
     redirect(`/my-memories?code=${searchParams.get("code")}`);
@@ -11,7 +11,7 @@ const handleLoginRedirect = () => {
 };
 
 export default function Plamory() {
-  handleLoginRedirect();
+  useLoginRedirect();
 
   return (
     <div
