@@ -1,21 +1,39 @@
 "use client";
 
+import { GoogleIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { signInWithGoogle } from "@/lib/auth-actions";
+import { createClient } from "@/utils/supabase/client";
+import { useEffect, useState } from "react";
 
-const SignInWithGoogleButton = () => {
+export default function SignInWithGoogleButton() {
+  const [user, setUser] = useState<any>(null);
+  const supabase = createClient();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    fetchUser();
+  }, [supabase.auth]);
+
+  if (user) {
+    return null;
+  }
+
   return (
     <Button
       type="button"
       variant="outline"
-      className="w-full"
+      className="flex items-center gap-2"
       onClick={() => {
         signInWithGoogle();
       }}
     >
-      Login with Google
+      <GoogleIcon /> Continue with Google
     </Button>
   );
-};
-
-export default SignInWithGoogleButton;
+}
