@@ -2,13 +2,11 @@
 
 import { signout } from "@/lib/auth-actions";
 import { createClient } from "@/utils/supabase/client";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
-const LoginButton = () => {
+export default function LogoutButton() {
   const [user, setUser] = useState<any>(null);
-  const router = useRouter();
   const supabase = createClient();
 
   useEffect(() => {
@@ -33,16 +31,4 @@ const LoginButton = () => {
       </Button>
     );
   }
-  return (
-    <Button
-      variant="outline"
-      onClick={() => {
-        router.push("/login");
-      }}
-    >
-      Login
-    </Button>
-  );
-};
-
-export default LoginButton;
+}

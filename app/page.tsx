@@ -1,16 +1,24 @@
-import LoginButton from "@/components/LoginLogoutButton";
-import UserGreetText from "@/components/UserGreetText";
+"use client";
+
 import Image from "next/image";
+import { redirect, useSearchParams } from "next/navigation";
+
+const handleLoginRedirect = () => {
+  const searchParams = useSearchParams();
+  if (searchParams.get("code")) {
+    redirect(`/my-memories?code=${searchParams.get("code")}`);
+  }
+};
 
 export default function Plamory() {
+  handleLoginRedirect();
+
   return (
     <div
       className="bg-gray-50 py-10 min-h-dvh bg-cover bg-center pt-24"
       style={{ backgroundImage: "url(/images/gradient-bg.webp)" }}
     >
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-        <UserGreetText />
-        <LoginButton />
         <p className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-gray-950 sm:text-6xl font-caveat">
           Your memories, Your way!
         </p>
