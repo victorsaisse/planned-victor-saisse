@@ -44,10 +44,10 @@ export default function Plamory() {
                   <div className="absolute inset-x-10 top-10 bottom-0 overflow-hidden">
                     <Image
                       className="size-full object-cover object-top"
-                      src="/images/feed.webp"
+                      src="/images/feed.png"
                       alt="Feed"
-                      width={312}
-                      height={974}
+                      width={810}
+                      height={1670}
                     />
                   </div>
                 </div>
@@ -70,10 +70,10 @@ export default function Plamory() {
                 <div className="flex flex-1 items-center justify-center px-8 max-lg:pt-10 max-lg:pb-12 sm:px-10 lg:pb-2">
                   <Image
                     className="w-full max-lg:max-w-xs"
-                    src="/images/filters.webp"
+                    src="/images/filters.png"
                     alt="Filters"
-                    width={280}
-                    height={106}
+                    width={1251}
+                    height={440}
                   />
                 </div>
               </div>
@@ -93,10 +93,10 @@ export default function Plamory() {
                 <div className="@container flex flex-1 items-center max-lg:py-6 lg:pb-2">
                   <Image
                     className="w-full h-auto object-contain"
-                    src="/images/profile.webp"
+                    src="/images/profile.png"
                     alt="Profile"
-                    width={366}
-                    height={152}
+                    width={1191}
+                    height={494}
                   />
                 </div>
               </div>
@@ -118,10 +118,10 @@ export default function Plamory() {
                   <div className="p-4">
                     <Image
                       className="w-full h-auto object-contain"
-                      src="/images/ai-chat.webp"
+                      src="/images/ai-chat.png"
                       alt="AI Chat"
-                      width={366}
-                      height={495}
+                      width={621}
+                      height={906}
                     />
                   </div>
                 </div>
