@@ -1,5 +1,6 @@
 import Divider from "@/components/divider";
 import BlockCard from "@/components/feed/block-card";
+import ListCard from "@/components/feed/list-card";
 import Separator from "@/components/feed/separator";
 import Filters from "@/components/filters/filters";
 import ProfileBanner from "@/components/profile/banner";
@@ -21,6 +22,13 @@ export default function Demo() {
             <YearsTimeline />
           </div>
           <div className="flex flex-col gap-4 items-center">
+            <ListCard imageUrl="https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/img-1.jpg" />
+            <ListCard imageUrl="https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/img-1.jpg" />
+            <ListCard />
+            <ListCard />
+            <ListCard imageUrl="https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/img-1.jpg" />
+            <ListCard imageUrl="https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/img-1.jpg" />
+            <Separator />
             <BlockCard imageUrl="https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/img-1.jpg" />
             <Separator />
             <BlockCard imageUrl="https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/img-1.jpg" />
