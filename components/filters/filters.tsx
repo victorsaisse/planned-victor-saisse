@@ -32,7 +32,7 @@ import { useState } from "react";
 
 export default function Filters() {
   return (
-    <div className="w-full flex justify-end gap-2 mt-8">
+    <div className="w-full flex sm:justify-end gap-2 mt-8 flex-wrap justify-evenly">
       <FilterButton onClick={() => {}}>
         <ArrowUpDown />
       </FilterButton>
@@ -101,7 +101,7 @@ function AddNewMemory() {
 
   return (
     <Sheet>
-      <SheetTrigger className="bg-black text-white px-3 py-1 rounded-md flex items-center gap-2 hover:bg-black/80 transition-all duration-200">
+      <SheetTrigger className="bg-black text-white px-3 py-2 rounded-md flex items-center gap-2 hover:bg-black/80 transition-all duration-200 ">
         <Plus /> New Memory
       </SheetTrigger>
       <SheetContent className="sm:min-w-[600px] overflow-y-auto">

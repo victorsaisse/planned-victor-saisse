@@ -11,7 +11,7 @@ export default function ProfilePicture({
   letter,
 }: ProfilePictureProps) {
   return (
-    <div className="absolute top-[-90px] left-2">
+    <div className="absolute top-[-90px] md:left-2  left-1/2 transform max-md:-translate-x-1/2 ">
       <div className="relative">
         {imageUrl ? (
           <Image

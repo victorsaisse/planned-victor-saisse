@@ -53,8 +53,8 @@ export default function MyMemories() {
         <ProfileInfo />
         <Filters />
         <Divider />
-        <div className="grid grid-cols-[auto_1fr] gap-4 mb-8">
-          <div className="px-4 sticky top-4 self-start">
+        <div className="grid grid-cols-[auto_1fr] gap-4 mb-8 max-lg:grid-cols-1">
+          <div className="px-4 sticky top-4 self-start max-lg:hidden">
             <YearsTimeline />
           </div>
           <div className="flex flex-col gap-4 items-center">

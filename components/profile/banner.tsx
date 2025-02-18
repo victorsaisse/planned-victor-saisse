@@ -9,7 +9,7 @@ export default function ProfileBanner() {
       className="h-[200px] w-full bg-gray-500 bg-cover bg-center rounded-b-lg"
       style={{ backgroundImage: `url(${bgUrl})` }}
     >
-      <EditButton className="absolute top-2 right-2" />
+      <EditButton className="absolute top-[185px] md:top-2 right-2 " />
     </div>
   );
 }
