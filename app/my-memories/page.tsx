@@ -1,3 +1,4 @@
+import ImageUploader from "@/components/file-upload/image-uploader";
 import SignInWithGoogleButton from "@/components/login/google-button";
 import LoginButton from "@/components/login/logout-button";
 
@@ -9,6 +10,10 @@ export default function MyMemories() {
     >
       <LoginButton />
       <SignInWithGoogleButton />
+
+      <div className="p-4"></div>
+
+      <ImageUploader />
     </div>
   );
 }
