@@ -3,11 +3,22 @@ import ShareButton from "@/components/global/share-button";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
 
-export default function BlockImageCard() {
+type BlockCardProps = {
+  imageUrl?: string;
+};
+
+export default function BlockCard({ imageUrl }: BlockCardProps) {
   return (
-    <div className="w-full relative aspect-square overflow-hidden rounded-lg group">
+    <div
+      className={`w-full relative overflow-hidden rounded-lg group ${
+        imageUrl ? "aspect-square" : "aspect-video"
+      }`}
+    >
       <Image
-        src="https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/img-1.jpg"
+        src={
+          imageUrl ??
+          "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-1.jpg"
+        }
         alt="memory"
         fill
         className="object-cover transition-transform duration-300 group-hover:scale-105"
