@@ -1,4 +1,4 @@
-import { MapPinIcon } from "@/components/icons";
+import { MapPin } from "lucide-react";
 
 export default function ProfileInfo() {
   return (
@@ -9,7 +9,7 @@ export default function ProfileInfo() {
           Passionate Software Engineer and Code Enthusiast 🚀
         </p>
         <p className="flex items-center gap-2">
-          <MapPinIcon />
+          <MapPin size={16} />
           <span className="text-gray-500 text-sm">Montreal, QC, Canada</span>
         </p>
       </div>

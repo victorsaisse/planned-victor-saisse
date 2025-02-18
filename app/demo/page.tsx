@@ -1,4 +1,5 @@
 import Divider from "@/components/divider";
+import BlockImageCard from "@/components/feed/block-image-card";
 import Filters from "@/components/filters/filters";
 import ProfileBanner from "@/components/profile/banner";
 import ProfileInfo from "@/components/profile/profile-info";
@@ -19,11 +20,11 @@ export default function Demo() {
             <YearsTimeline />
           </div>
           <div className="flex flex-col gap-4">
-            <div className="w-full bg-blue-100 h-[500px]"></div>
-            <div className="w-full bg-blue-100 h-[500px]"></div>
-            <div className="w-full bg-blue-100 h-[500px]"></div>
-            <div className="w-full bg-blue-100 h-[500px]"></div>
-            <div className="w-full bg-blue-100 h-[500px]"></div>
+            <BlockImageCard />
+            <BlockImageCard />
+            <BlockImageCard />
+            <BlockImageCard />
+            <BlockImageCard />
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
-import { EditIcon } from "@/components/icons";
 import { cn } from "@/lib/utils";
+import { Pencil } from "lucide-react";
 
 export default function EditButton({
   className,
@@ -17,7 +17,7 @@ export default function EditButton({
       style={{ filter: "drop-shadow(0px 4px 8px #0000001A)" }}
       onClick={onClick}
     >
-      <EditIcon />
+      <Pencil size={16} />
     </button>
   );
 }

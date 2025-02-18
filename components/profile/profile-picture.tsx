@@ -1,5 +1,5 @@
 import Image from "next/image";
-import EditButton from "@/components/profile/edit-button";
+import EditButton from "@/components/global/edit-button";
 
 export default function ProfilePicture() {
   const profilePictureUrl =
