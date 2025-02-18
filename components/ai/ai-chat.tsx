@@ -25,7 +25,7 @@ export default function AiChat() {
 
 function Chat() {
   return (
-    <div className="w-[350px] h-[400px] bg-white rounded-2xl shadow-md border-[1px] border-[#E0E0E0] flex flex-col">
+    <div className="w-[350px] h-[400px] bg-white rounded-2xl shadow-md border-[1px] border-[#E0E0E0] flex flex-col max-w-[90vw]">
       <div className="flex-1 overflow-y-auto p-4">
         <div className="flex flex-col gap-4">
           <div className="bg-[#F2F2F3] rounded-md p-4 text-black text-sm font-light self-start max-w-[90%]">

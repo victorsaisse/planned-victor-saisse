@@ -33,11 +33,11 @@ export default function BlockCard({ imageUrl }: BlockCardProps) {
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-2">
-          <p className="text-white text-4xl font-medium font-caveat">
+          <p className="text-white text-2xl md:text-4xl font-medium font-caveat">
             First Day At Planned
           </p>
           <div className="flex flex-col gap-2">
-            <p className="text-white text-base font-light italic">
+            <p className="text-white text-sm md:text-base font-light italic">
               Description about the trip or the memory goes over here. Make sure
               to write it good.
             </p>
