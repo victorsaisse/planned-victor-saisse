@@ -15,7 +15,7 @@ export default function Demo() {
         <Filters />
         <Divider />
         <div className="grid grid-cols-[auto_1fr] gap-4 mb-8">
-          <div className="px-4">
+          <div className="px-4 sticky top-4 self-start">
             <YearsTimeline />
           </div>
           <div className="flex flex-col gap-4">
