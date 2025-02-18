@@ -11,6 +11,13 @@ export const metadata: Metadata = {
   title: "Plamory",
   description: "Your memories, your way",
   metadataBase: new URL("https://plamory.com"),
+  openGraph: {
+    title: "Plamory",
+    description: "Your memories, your way",
+    url: "https://plamory.com",
+    siteName: "Plamory",
+    images: "/opengraph-image.jpg",
+  },
 };
 
 export default async function RootLayout({
