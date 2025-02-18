@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { redirect, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
@@ -23,11 +24,21 @@ export default function Plamory() {
         style={{ backgroundImage: "url(/images/gradient-bg.webp)" }}
       >
         <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-          <p className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-gray-950 sm:text-6xl font-caveat">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-gray-950 sm:text-6xl font-caveat"
+          >
             Your memories, Your way!
-          </p>
+          </motion.p>
           <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
-            <div className="relative lg:row-span-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="relative lg:row-span-2"
+            >
               <div className="absolute inset-px rounded-lg bg-white lg:rounded-l-[2rem]"></div>
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
                 <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
@@ -53,8 +64,13 @@ export default function Plamory() {
                 </div>
               </div>
               <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 lg:rounded-l-[2rem]"></div>
-            </div>
-            <div className="relative max-lg:row-start-1">
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="relative max-lg:row-start-1"
+            >
               <div className="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem]"></div>
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
                 <div className="px-8 pt-8 sm:px-10 sm:pt-10">
@@ -78,8 +94,13 @@ export default function Plamory() {
                 </div>
               </div>
               <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 max-lg:rounded-t-[2rem]"></div>
-            </div>
-            <div className="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2">
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2"
+            >
               <div className="absolute inset-px rounded-lg bg-white"></div>
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
                 <div className="px-8 pt-8 sm:px-10 sm:pt-10">
@@ -101,8 +122,13 @@ export default function Plamory() {
                 </div>
               </div>
               <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5"></div>
-            </div>
-            <div className="relative lg:row-span-2">
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+              className="relative lg:row-span-2"
+            >
               <div className="absolute inset-px rounded-lg bg-white max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"></div>
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
                 <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
@@ -127,7 +153,7 @@ export default function Plamory() {
                 </div>
               </div>
               <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"></div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
