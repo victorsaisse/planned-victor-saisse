@@ -5,6 +5,9 @@ const nextConfig = {
       {
         hostname: "tuogqtvpasmyytgswncm.supabase.co",
       },
+      {
+        hostname: "lh3.googleusercontent.com",
+      },
     ],
   },
 };

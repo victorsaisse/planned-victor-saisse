@@ -15,7 +15,10 @@ export default function Demo() {
       <AiChat />
       <ProfileBanner />
       <div className="max-w-[900px] mx-auto px-2 relative">
-        <ProfilePicture />
+        <ProfilePicture
+          letter="V"
+          imageUrl="https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/profile/profile-pic.jpg"
+        />
         <ProfileInfo />
         <Filters />
         <Divider />

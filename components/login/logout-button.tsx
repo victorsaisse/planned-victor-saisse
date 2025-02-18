@@ -1,34 +1,17 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { signout } from "@/lib/auth-actions";
-import { createClient } from "@/utils/supabase/client";
-import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
 
 export default function LogoutButton() {
-  const [user, setUser] = useState<any>(null);
-  const supabase = createClient();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setUser(user);
-    };
-    fetchUser();
-  }, [supabase.auth]);
-
-  if (user) {
-    return (
-      <Button
-        onClick={() => {
-          signout();
-          setUser(null);
-        }}
-      >
-        Log out
-      </Button>
-    );
-  }
+  return (
+    <Button
+      className="absolute top-4 right-2 bg-white text-black hover:bg-gray-100 transition-all duration-200 border border-[#E0E0E3] shadow-none"
+      onClick={() => {
+        signout();
+      }}
+    >
+      Log out
+    </Button>
+  );
 }
