@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 
 export default function MyMemories() {
   const [user, setUser] = useState<any>(null);
-  console.log(user);
   const supabase = createClient();
 
   useEffect(() => {
