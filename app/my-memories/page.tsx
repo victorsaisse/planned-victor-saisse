@@ -18,7 +18,7 @@ export default function MyMemories() {
       setUser(user);
     };
     fetchUser();
-  }, []);
+  }, [supabase.auth]);
 
   return (
     <div

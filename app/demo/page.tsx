@@ -44,7 +44,7 @@ export default function Demo() {
             <BlockCard />
             <Separator />
             <p className="text-center text-3xl text-black font-caveat">
-              That's all :)
+              That&apos;s all :)
             </p>
           </div>
         </div>

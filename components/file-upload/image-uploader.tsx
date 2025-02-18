@@ -15,29 +15,32 @@ export default function ImageUploader({ userId, type }: ImageUploaderProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleUpload = useCallback(async (file: File) => {
-    setIsUploading(true);
-    setError(null);
+  const handleUpload = useCallback(
+    async (file: File) => {
+      setIsUploading(true);
+      setError(null);
 
-    if (!file) {
-      setError("No file selected, please select a file to upload.");
-      setIsUploading(false);
-      return;
-    }
+      if (!file) {
+        setError("No file selected, please select a file to upload.");
+        setIsUploading(false);
+        return;
+      }
 
-    const formData = new FormData();
-    formData.append("file", file);
+      const formData = new FormData();
+      formData.append("file", file);
 
-    try {
-      const data = await uploadImage({ formData, userId, type });
-      setImageUrl(data);
-      setIsUploading(false);
-    } catch (error) {
-      console.error(error);
-      setError("Error uploading image, please try again.");
-      setIsUploading(false);
-    }
-  }, []);
+      try {
+        const data = await uploadImage({ formData, userId, type });
+        setImageUrl(data);
+        setIsUploading(false);
+      } catch (error) {
+        console.error(error);
+        setError("Error uploading image, please try again.");
+        setIsUploading(false);
+      }
+    },
+    [userId, type]
+  );
 
   return (
     <div className="mt-10">

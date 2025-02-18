@@ -33,8 +33,8 @@ function Chat() {
           </div>
           <div className="bg-black rounded-md p-4 text-white text-sm font-light self-end max-w-[90%]">
             <p>
-              Hi,I'm looking for a place to stay in Paris. Hi,I'm looking for a
-              place to stay in Paris.
+              Hi,I&apos;m looking for a place to stay in Paris. Hi,I&apos;m
+              looking for a place to stay in Paris.
             </p>
           </div>
           <div className="bg-[#F2F2F3] rounded-md p-4 text-black text-sm font-light self-start max-w-[90%]">
@@ -42,8 +42,8 @@ function Chat() {
           </div>
           <div className="bg-black rounded-md p-4 text-white text-sm font-light self-end max-w-[90%]">
             <p>
-              Hi,I'm looking for a place to stay in Paris. Hi,I'm looking for a
-              place to stay in Paris.
+              Hi,I&apos;m looking for a place to stay in Paris. Hi,I&apos;m
+              looking for a place to stay in Paris.
             </p>
           </div>
           <div className="bg-[#F2F2F3] rounded-md p-4 text-black text-sm font-light self-start max-w-[90%]">
@@ -51,8 +51,8 @@ function Chat() {
           </div>
           <div className="bg-black rounded-md p-4 text-white text-sm font-light self-end max-w-[90%]">
             <p>
-              Hi,I'm looking for a place to stay in Paris. Hi,I'm looking for a
-              place to stay in Paris.
+              Hi,I&apos;m looking for a place to stay in Paris. Hi,I&apos;m
+              looking for a place to stay in Paris.
             </p>
           </div>
           <div className="bg-[#F2F2F3] rounded-md p-4 text-black text-sm font-light self-start max-w-[90%]">
@@ -60,8 +60,8 @@ function Chat() {
           </div>
           <div className="bg-black rounded-md p-4 text-white text-sm font-light self-end max-w-[90%]">
             <p>
-              Hi,I'm looking for a place to stay in Paris. Hi,I'm looking for a
-              place to stay in Paris.
+              Hi,I&apos;m looking for a place to stay in Paris. Hi,I&apos;m
+              looking for a place to stay in Paris.
             </p>
           </div>
         </div>
