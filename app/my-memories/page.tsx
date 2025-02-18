@@ -1,9 +1,25 @@
+"use client";
+
 import ImageUploader from "@/components/file-upload/image-uploader";
 import SignInWithGoogleButton from "@/components/login/google-button";
 import LoginButton from "@/components/login/logout-button";
+import { createClient } from "@/utils/supabase/client";
+import { useEffect, useState } from "react";
 
 export default function MyMemories() {
-  const userId = "123";
+  const [user, setUser] = useState<any>(null);
+  console.log(user);
+  const supabase = createClient();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    fetchUser();
+  }, []);
 
   return (
     <div
@@ -15,7 +31,7 @@ export default function MyMemories() {
 
       <div className="p-4"></div>
 
-      <ImageUploader userId={userId} type="user" />
+      {user && <ImageUploader userId={user.id} type="user" />}
     </div>
   );
 }
