@@ -3,6 +3,8 @@ import SignInWithGoogleButton from "@/components/login/google-button";
 import LoginButton from "@/components/login/logout-button";
 
 export default function MyMemories() {
+  const userId = "123";
+
   return (
     <div
       className="bg-gray-50 py-10 min-h-dvh bg-cover bg-center pt-24 flex flex-col items-center justify-center"
@@ -13,7 +15,7 @@ export default function MyMemories() {
 
       <div className="p-4"></div>
 
-      <ImageUploader />
+      <ImageUploader userId={userId} type="user" />
     </div>
   );
 }

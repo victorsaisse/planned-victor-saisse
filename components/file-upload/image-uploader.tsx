@@ -1,27 +1,60 @@
 "use client";
 
+import ImageUploaderInput from "@/components/file-upload/image-uploader-input";
 import { uploadImage } from "@/services/image-upload";
-import { useCallback } from "react";
+import Image from "next/image";
+import { useCallback, useState } from "react";
 
-export default function ImageUploader() {
-  const handleUpload = useCallback(
-    async (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
+type ImageUploaderProps = {
+  userId: string;
+  type: "user" | "demo";
+};
 
-      // Convert file to FormData which is supported by Server Actions
-      const formData = new FormData();
-      formData.append("file", file);
+export default function ImageUploader({ userId, type }: ImageUploaderProps) {
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-      try {
-        const data = await uploadImage(formData);
-        console.log("Uploaded image URL:", data);
-      } catch (error) {
-        console.error("Error uploading image:", error);
-      }
-    },
-    []
+  const handleUpload = useCallback(async (file: File) => {
+    setIsUploading(true);
+    setError(null);
+
+    if (!file) {
+      setError("No file selected, please select a file to upload.");
+      setIsUploading(false);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const data = await uploadImage({ formData, userId, type });
+      setImageUrl(data);
+      setIsUploading(false);
+    } catch (error) {
+      console.error(error);
+      setError("Error uploading image, please try again.");
+      setIsUploading(false);
+    }
+  }, []);
+
+  return (
+    <div className="mt-10">
+      {!imageUrl && <ImageUploaderInput handleUpload={handleUpload} />}
+
+      {isUploading && <p>Uploading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
+
+      {imageUrl && (
+        <Image
+          className="mt-10"
+          src={imageUrl}
+          alt="Uploaded Image"
+          width={500}
+          height={500}
+        />
+      )}
+    </div>
   );
-
-  return <input type="file" onChange={(e) => handleUpload(e)} />;
 }
