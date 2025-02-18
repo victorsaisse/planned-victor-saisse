@@ -12,7 +12,7 @@ import {
 
 export default function Filters() {
   return (
-    <div className="w-full flex justify-end gap-2">
+    <div className="w-full flex justify-end gap-2 mt-8">
       <FilterButton onClick={() => {}}>
         <ArrowUpDown />
       </FilterButton>
@@ -21,16 +21,17 @@ export default function Filters() {
           <Calendar /> All Time
         </div>
       </FilterButton>
-      <FilterButton onClick={() => {}} className="bg-[#F2F2F3]">
-        <div className="flex items-center gap-1">
-          <div className="p-1 rounded-sm bg-white">
+      <FilterButton onClick={() => {}} className="bg-[#F2F2F3] px-2">
+        <div className="flex items-center gap-2">
+          <div className="p-1 rounded-sm bg-white hover:bg-white transition-all duration-200">
             <Grid2x2 />
           </div>
-          <div className="p-1 rounded-sm bg-white">
+          <div className="p-1 rounded-sm  hover:bg-white transition-all duration-200">
             <AlignJustify />
           </div>
         </div>
       </FilterButton>
+
       <FilterButton onClick={() => {}}>
         <Search />
       </FilterButton>
@@ -52,7 +53,7 @@ function FilterButton({
     <button
       onClick={onClick}
       className={cn(
-        "bg-white px-3 py-1 rounded-md border-[1px] border-[#E0E0E3] hover:bg-[#F5F5F7] transition-all duration-200",
+        "bg-white px-3 py-1 rounded-md border-[1px] border-[#E0E0E3] hover:bg-[#F5F5F7] transition-all duration-200 text-sm",
         className
       )}
     >
