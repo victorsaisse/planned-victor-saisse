@@ -26,7 +26,7 @@ const NavbarLink = ({
     <Link
       href={href}
       className={cn(
-        "text-md font-light px-4 py-2 rounded-md hover:bg-[#E7F4FE] transition-all duration-200",
+        "text-md font-light px-2 py-1 rounded-md hover:bg-[#E7F4FE] transition-all duration-200",
         isActive && "font-medium text-[#0085F9] bg-[#E7F4FE]"
       )}
     >
