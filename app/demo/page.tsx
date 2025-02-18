@@ -1,3 +1,4 @@
+import AiChat from "@/components/ai/ai-chat";
 import Divider from "@/components/divider";
 import BlockCard from "@/components/feed/block-card";
 import ListCard from "@/components/feed/list-card";
@@ -11,6 +12,7 @@ import YearsTimeline from "@/components/years-timeline/years-timeline";
 export default function Demo() {
   return (
     <>
+      <AiChat />
       <ProfileBanner />
       <div className="max-w-[900px] mx-auto px-2 relative">
         <ProfilePicture />
