@@ -14,12 +14,16 @@ export default function Demo() {
         <ProfileInfo />
         <Filters />
         <Divider />
-        <div className="grid grid-cols-[auto_1fr] gap-4">
+        <div className="grid grid-cols-[auto_1fr] gap-4 mb-8">
           <div className="px-4">
             <YearsTimeline />
           </div>
-          <div>
-            <div className="w-full bg-red-100">a</div>
+          <div className="flex flex-col gap-4">
+            <div className="w-full bg-blue-100 h-[500px]"></div>
+            <div className="w-full bg-blue-100 h-[500px]"></div>
+            <div className="w-full bg-blue-100 h-[500px]"></div>
+            <div className="w-full bg-blue-100 h-[500px]"></div>
+            <div className="w-full bg-blue-100 h-[500px]"></div>
           </div>
         </div>
       </div>
