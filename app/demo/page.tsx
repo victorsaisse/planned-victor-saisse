@@ -1,5 +1,6 @@
 import Divider from "@/components/divider";
 import BlockImageCard from "@/components/feed/block-image-card";
+import Separator from "@/components/feed/separator";
 import Filters from "@/components/filters/filters";
 import ProfileBanner from "@/components/profile/banner";
 import ProfileInfo from "@/components/profile/profile-info";
@@ -19,11 +20,17 @@ export default function Demo() {
           <div className="px-4 sticky top-4 self-start">
             <YearsTimeline />
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 items-center">
             <BlockImageCard />
+            <Separator />
             <BlockImageCard />
+            <Separator />
             <BlockImageCard />
+            <Separator />
             <BlockImageCard />
+            <Separator />
+            <BlockImageCard />
+            <Separator />
             <BlockImageCard />
           </div>
         </div>

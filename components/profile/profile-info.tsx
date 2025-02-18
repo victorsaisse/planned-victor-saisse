@@ -8,8 +8,8 @@ export default function ProfileInfo() {
         <p className="text-gray-500 text-sm">
           Passionate Software Engineer and Code Enthusiast 🚀
         </p>
-        <p className="flex items-center gap-2">
-          <MapPin size={16} />
+        <p className="flex items-center gap-1">
+          <MapPin size={16} className="text-gray-500" />
           <span className="text-gray-500 text-sm">Montreal, QC, Canada</span>
         </p>
       </div>
