@@ -40,6 +40,10 @@ export default function Demo() {
             <BlockCard imageUrl="https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/img-1.jpg" />
             <Separator />
             <BlockCard />
+            <Separator />
+            <p className="text-center text-3xl text-black font-caveat">
+              That's all :)
+            </p>
           </div>
         </div>
       </div>
