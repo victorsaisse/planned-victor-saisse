@@ -8,7 +8,7 @@ import ProfileBanner from "@/components/profile/banner";
 import ProfileInfo from "@/components/profile/profile-info";
 import ProfilePicture from "@/components/profile/profile-picture";
 import YearsTimeline from "@/components/years-timeline/years-timeline";
-import { useDemoStore } from "@/store/useDemoStore";
+import { useDemoStore } from "@/store/use-demo-store";
 import { Fragment } from "react";
 
 export default function Demo() {

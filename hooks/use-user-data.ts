@@ -1,6 +1,6 @@
-import { useUserStore } from "@/store/useUserStore";
+import { useUserStore } from "@/store/use-user-store";
 import { createClient } from "@/utils/supabase/client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const DEFAULT_BANNER_URL =
   "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-4.jpg";
@@ -17,6 +17,7 @@ type UserData = {
 export function useUserData() {
   const { user, setUser } = useUserStore();
   const supabase = createClient();
+  const [isLoading, setIsLoading] = useState(true);
 
   const createNewUser = async (authUser: any): Promise<UserData | null> => {
     const newUserData: UserData = {
@@ -60,7 +61,10 @@ export function useUserData() {
       const {
         data: { user: authUser },
       } = await supabase.auth.getUser();
-      if (!authUser) return;
+      if (!authUser) {
+        setIsLoading(false);
+        return;
+      }
 
       const { data: userData, error } = await supabase
         .from("users")
@@ -70,6 +74,7 @@ export function useUserData() {
 
       if (error) {
         console.error("Error fetching user data:", error);
+        setIsLoading(false);
         return;
       }
 
@@ -79,17 +84,21 @@ export function useUserData() {
       } else {
         updateUserStore(userData);
       }
+      setIsLoading(false);
     } catch (error) {
       console.error("Error in fetchUserData:", error);
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     if (!user) {
       fetchUserData();
+    } else {
+      setIsLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  return { user, fetchUserData };
+  return { user, isLoading, fetchUserData };
 }
