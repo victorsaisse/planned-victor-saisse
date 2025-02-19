@@ -26,27 +26,71 @@ export default function MyMemories() {
       } = await supabase.auth.getUser();
 
       if (user) {
-        setUser({
-          id: user.id!,
-          profile: {
+        const { data: userData, error } = await supabase
+          .from("users")
+          .select("*")
+          .eq("id", user.id!);
+
+        if (error) {
+          console.error(error);
+        }
+
+        console.log("===>> userData", userData);
+
+        if (!userData?.length) {
+          console.log("===>> userData not found, creating user");
+          const { error: newUserError } = await supabase.from("users").insert({
+            id: user.id!,
             name: user.user_metadata.name!,
             imageUrl: user.user_metadata.avatar_url!,
-            location: "",
-            bannerUrl: "",
-            bio: "",
-          },
-          memories: [],
-          aiChat: {
-            messages: [],
-          },
-        });
+            bannerUrl:
+              "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-4.jpg",
+            bio: "Add your description here.",
+            location: "Your Location",
+          });
+
+          if (newUserError) {
+            console.error(newUserError);
+          }
+
+          setUser({
+            id: user.id!,
+            profile: {
+              name: user.user_metadata.name!,
+              imageUrl: user.user_metadata.avatar_url!,
+              bannerUrl:
+                "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-4.jpg",
+              bio: "Add your description here.",
+              location: "Your Location",
+            },
+            memories: [],
+            aiChat: {
+              messages: [],
+            },
+          });
+        } else {
+          setUser({
+            id: user.id!,
+            profile: {
+              name: userData[0].name,
+              imageUrl: userData[0].imageUrl,
+              bannerUrl: userData[0].bannerUrl,
+              bio: userData[0].bio,
+              location: userData[0].location,
+            },
+            memories: [],
+            aiChat: {
+              messages: [],
+            },
+          });
+        }
       }
     };
 
     if (!user) {
       fetchUser();
     }
-  }, [supabase.auth, setUser, user]);
+  }, [supabase.auth, setUser, user, supabase]);
 
   if (!user) {
     return (
@@ -74,7 +118,7 @@ export default function MyMemories() {
         <Divider />
         <div className="grid grid-cols-[auto_1fr] gap-4 mb-8 max-lg:grid-cols-1">
           <div className="px-4 sticky top-4 self-start max-lg:hidden">
-            <YearsTimeline />
+            <YearsTimeline memories={user.memories} />
           </div>
           <div className="flex flex-col gap-4 items-center">
             <Separator />

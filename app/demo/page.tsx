@@ -32,7 +32,7 @@ export default function Demo() {
 
         <div className="grid grid-cols-[auto_1fr] gap-4 mb-8 max-lg:grid-cols-1">
           <div className="px-4 sticky top-4 self-start max-lg:hidden">
-            <YearsTimeline />
+            <YearsTimeline memories={demo.memories} />
           </div>
 
           <Memories memories={demo.memories} />

@@ -1,4 +1,10 @@
-export default function YearsTimeline() {
+import { MemoryType } from "@/lib/types";
+
+export default function YearsTimeline({
+  memories,
+}: {
+  memories: MemoryType[];
+}) {
   const years = [2025, 2024, 2023, 2022, 2021, 2020];
   const currentYear = 2024;
 
