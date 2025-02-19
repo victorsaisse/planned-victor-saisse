@@ -26,8 +26,8 @@ export default function ListCard({ memory }: ListCardProps) {
         <p className="text-black text-sm py-1 px-3 bg-white font-light italic rounded-full">
           {memory.createdAt}
         </p>
-        <EditButton />
-        <ShareButton />
+        <EditButton tooltipText="Edit memory" />
+        <ShareButton tooltipText="Share memory" />
       </div>
 
       <div className="flex-1 flex flex-col gap-2 pr-0 md:pr-36 h-full">

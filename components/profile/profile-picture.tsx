@@ -24,7 +24,10 @@ export default function ProfilePicture({
         ) : (
           <ProfilePicturePlaceholder letter={letter} />
         )}
-        <EditButton className="absolute bottom-0 right-[30px]" />
+        <EditButton
+          className="absolute bottom-0 right-[30px]"
+          tooltipText="Edit profile picture"
+        />
       </div>
     </div>
   );

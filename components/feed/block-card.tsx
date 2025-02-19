@@ -29,8 +29,8 @@ export default function BlockCard({ memory }: BlockCardProps) {
           <p className="text-black text-sm py-1 px-3 bg-white font-light italic rounded-full">
             {memory.createdAt}
           </p>
-          <EditButton />
-          <ShareButton />
+          <EditButton tooltipText="Edit memory" />
+          <ShareButton tooltipText="Share memory" />
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-2">
