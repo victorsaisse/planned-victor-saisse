@@ -1,7 +1,13 @@
 import EditButton from "@/components/global/edit-button";
 import { ProfileType } from "@/lib/types";
 
-export default function ProfileBanner({ profile }: { profile: ProfileType }) {
+export default function ProfileBanner({
+  profile,
+  onEdit,
+}: {
+  profile: ProfileType;
+  onEdit?: () => void;
+}) {
   return (
     <div
       className="h-[200px] w-full bg-gray-500 bg-cover bg-center rounded-b-lg"
@@ -10,6 +16,7 @@ export default function ProfileBanner({ profile }: { profile: ProfileType }) {
       <EditButton
         className="absolute top-[185px] md:top-2 right-2"
         tooltipText="Edit banner"
+        onClick={onEdit}
       />
     </div>
   );

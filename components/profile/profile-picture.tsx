@@ -4,11 +4,13 @@ import Image from "next/image";
 type ProfilePictureProps = {
   imageUrl?: string;
   letter: string;
+  onEdit?: () => void;
 };
 
 export default function ProfilePicture({
   imageUrl,
   letter,
+  onEdit,
 }: ProfilePictureProps) {
   return (
     <div className="absolute top-[-90px] md:left-2  left-1/2 transform max-md:-translate-x-1/2 ">
@@ -19,7 +21,7 @@ export default function ProfilePicture({
             alt="Profile Picture"
             width={180}
             height={180}
-            className="rounded-full border-4 border-white"
+            className="rounded-full border-4 border-white w-[180px] h-[180px] object-cover"
           />
         ) : (
           <ProfilePicturePlaceholder letter={letter} />
@@ -27,6 +29,7 @@ export default function ProfilePicture({
         <EditButton
           className="absolute bottom-0 right-[30px]"
           tooltipText="Edit profile picture"
+          onClick={onEdit}
         />
       </div>
     </div>

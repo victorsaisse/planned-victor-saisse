@@ -7,20 +7,98 @@ import Divider from "@/components/global/divider";
 import ProfileBanner from "@/components/profile/banner";
 import ProfileInfo from "@/components/profile/profile-info";
 import ProfilePicture from "@/components/profile/profile-picture";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import YearsTimeline from "@/components/years-timeline/years-timeline";
+import { BANNERS } from "@/lib/constants";
+import { uploadImage } from "@/services/image-upload";
 import { useDemoStore } from "@/store/use-demo-store";
-import { Fragment } from "react";
+import moment from "moment";
+import Image from "next/image";
+import { Fragment, useRef, useState } from "react";
 
 export default function Demo() {
-  const { demo } = useDemoStore();
+  const { demo, setDemo } = useDemoStore();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const currentTime = moment().format("MMM D, YYYY");
+  console.log("===>> currentTime", currentTime);
+
+  const handleEditProfilePicture = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+    const data = await uploadImage({ formData, userId: demo.id, type: "demo" });
+
+    if (data) {
+      setDemo({
+        ...demo,
+        profile: {
+          ...demo.profile,
+          imageUrl: data,
+        },
+      });
+    }
+  };
 
   return (
     <Fragment>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Choose your banner</DialogTitle>
+          </DialogHeader>
+          <div className="grid grid-cols-5 gap-4 pt-4">
+            {BANNERS.map((banner) => (
+              <Image
+                key={banner}
+                src={banner}
+                alt="banner"
+                width={100}
+                height={100}
+                className="rounded-lg object-cover cursor-pointer hover:ring-2 hover:ring-primary transition-all"
+                onClick={() => {
+                  setDemo({
+                    ...demo,
+                    profile: {
+                      ...demo.profile,
+                      bannerUrl: banner,
+                    },
+                  });
+                  setIsDialogOpen(false);
+                }}
+              />
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
+      <input
+        className="hidden"
+        type="file"
+        accept="image/*"
+        ref={fileInputRef}
+        onChange={handleEditProfilePicture}
+      />
+
       <AiChat aiChat={demo.aiChat} />
-      <ProfileBanner profile={demo.profile} />
+      <ProfileBanner
+        profile={demo.profile}
+        onEdit={() => setIsDialogOpen(true)}
+      />
 
       <div className="max-w-[900px] mx-auto px-2 relative">
         <ProfilePicture
+          onEdit={() => fileInputRef.current?.click()}
           letter={demo.profile.name.charAt(0)}
           imageUrl={demo.profile.imageUrl}
         />
