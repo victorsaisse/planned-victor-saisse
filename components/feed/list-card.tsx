@@ -20,6 +20,7 @@ export default function ListCard({ memory }: ListCardProps) {
           alt="memory"
           fill
           className="object-cover transition-transform duration-300 hover:scale-105"
+          sizes="200px"
         />
       </div>
       <div className="absolute top-6 right-6 md:top-4 md:right-4 flex flex-col gap-4 items-end">
