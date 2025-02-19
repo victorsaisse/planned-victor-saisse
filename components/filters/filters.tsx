@@ -1,6 +1,10 @@
 "use client";
 
 import ImageUploaderInput from "@/components/file-upload/image-uploader-input";
+import DateRange from "@/components/filters/date-range";
+import SearchFilter from "@/components/filters/search-filter";
+import SortBy from "@/components/filters/sort-by";
+import ViewType from "@/components/filters/view-type";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
@@ -20,83 +24,19 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import {
-  AlignJustify,
-  ArrowUpDown,
-  Calendar as CalendarIcon,
-  Grid2x2,
-  Plus,
-  Search,
-} from "lucide-react";
+import { Calendar as CalendarIcon, Plus } from "lucide-react";
+import moment from "moment";
 import { useState } from "react";
-import { useQueryState } from "nuqs";
-export default function Filters() {
-  const [viewType, setViewType] = useQueryState("viewType", {
-    defaultValue: "grid",
-    parse: (value) => value as "grid" | "list",
-  });
 
+export default function Filters() {
   return (
     <div className="w-full flex sm:justify-end gap-2 mt-8 flex-wrap justify-evenly">
-      <FilterButton onClick={() => {}}>
-        <ArrowUpDown />
-      </FilterButton>
-      <FilterButton onClick={() => {}}>
-        <div className="flex items-center gap-2">
-          <CalendarIcon /> All Time
-        </div>
-      </FilterButton>
-      <FilterButton onClick={() => {}} className="bg-[#F2F2F3] px-2">
-        <div className="flex items-center gap-2">
-          <div
-            onClick={() => setViewType("grid")}
-            className={cn(
-              "p-1 rounded-sm  hover:bg-white transition-all duration-200",
-              viewType === "grid" && "bg-white"
-            )}
-          >
-            <Grid2x2 />
-          </div>
-          <div
-            onClick={() => setViewType("list")}
-            className={cn(
-              "p-1 rounded-sm hover:bg-white transition-all duration-200",
-              viewType === "list" && "bg-white"
-            )}
-          >
-            <AlignJustify />
-          </div>
-        </div>
-      </FilterButton>
-
-      <FilterButton onClick={() => {}}>
-        <Search />
-      </FilterButton>
-
+      <SortBy />
+      <DateRange />
+      <ViewType />
+      <SearchFilter />
       <AddNewMemory />
     </div>
-  );
-}
-
-function FilterButton({
-  children,
-  onClick,
-  className,
-}: {
-  children: React.ReactNode;
-  onClick: () => void;
-  className?: string;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={cn(
-        "bg-white px-3 py-1 rounded-md border-[1px] border-[#E0E0E3] hover:bg-[#F5F5F7] transition-all duration-200 text-sm",
-        className
-      )}
-    >
-      {children}
-    </button>
   );
 }
 
@@ -105,8 +45,15 @@ function AddNewMemory() {
     // @TODO: Upload file to supabase storage
     console.log(file);
   };
-  const [date, setDate] = useState<Date>();
+  const mockDate = "Feb 18, 2024";
+  const [date, setDate] = useState<Date>(new Date(mockDate));
   const [dateError, setDateError] = useState<string | null>(null);
+
+  // moment().format("MMM D, YYYY");
+
+  const formatedDate = moment(date).format("MMM D, YYYY");
+
+  console.log("===>> formatedDate", formatedDate);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -170,7 +117,7 @@ function AddNewMemory() {
                 <Calendar
                   mode="single"
                   selected={date}
-                  onSelect={setDate}
+                  onSelect={(value) => setDate(value ?? new Date())}
                   initialFocus
                   required
                 />
