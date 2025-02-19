@@ -66,6 +66,27 @@ export const INITIAL_MEMORIES = [
     createdAt: "Oct 20, 2024",
     location: "Montreal, QC, Canada",
   },
+  {
+    id: crypto.randomUUID(),
+    title: "Memory 4",
+    description: "Description 4",
+    createdAt: "Jan 15, 2024",
+    location: "Montreal, QC, Canada",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Memory 4",
+    description: "Description 4",
+    createdAt: "Aug 15, 2024",
+    location: "Montreal, QC, Canada",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Memory 5",
+    description: "Description 5",
+    createdAt: "Dec 10, 2023",
+    location: "Montreal, QC, Canada",
+  },
 ];
 
 export const INITIAL_PROFILE = {
@@ -77,3 +98,26 @@ export const INITIAL_PROFILE = {
   bannerUrl:
     "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-1.jpg",
 };
+
+export const RANGE_OPTIONS = [
+  {
+    label: "All Time",
+    value: "allTime",
+  },
+  {
+    label: "This Year",
+    value: "thisYear",
+  },
+  {
+    label: "Last 3 Months",
+    value: "last3Months",
+  },
+  {
+    label: "Last 6 Months",
+    value: "last6Months",
+  },
+  {
+    label: "Last 12 Months",
+    value: "last12Months",
+  },
+];

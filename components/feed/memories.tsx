@@ -3,12 +3,24 @@
 import BlockCard from "@/components/feed/block-card";
 import ListCard from "@/components/feed/list-card";
 import Separator from "@/components/feed/separator";
+import { useFilteredMemories } from "@/hooks/use-filtered-memories";
+import { useSortedMemories } from "@/hooks/use-sorted-memories";
 import { MemoryType } from "@/lib/types";
 import { AnimatePresence, motion } from "framer-motion";
 import { useQueryState } from "nuqs";
 
 export default function Memories({ memories }: { memories: MemoryType[] }) {
   const [viewType] = useQueryState("viewType");
+  const [sortBy] = useQueryState("sortBy");
+  const [dateRange] = useQueryState("dateRange");
+  const [search] = useQueryState("search");
+
+  const sortedMemories = useSortedMemories(memories, sortBy, dateRange);
+  const filteredMemories = useFilteredMemories(
+    sortedMemories,
+    dateRange,
+    sortBy
+  );
 
   return (
     <div
@@ -16,7 +28,7 @@ export default function Memories({ memories }: { memories: MemoryType[] }) {
         viewType === "list" ? "gap-8" : "gap-4"
       } items-center`}
     >
-      {memories.map((memory) => (
+      {filteredMemories.map((memory) => (
         <motion.div
           key={memory.id}
           initial={{ opacity: 0, y: 50 }}
