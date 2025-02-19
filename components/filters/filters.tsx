@@ -78,7 +78,9 @@ function AddNewMemory() {
           <ImageUploaderInput handleUpload={handleUpload} />
 
           <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title">
+              Title <span className="text-red-500">*</span>
+            </Label>
             <Input
               type="text"
               id="title"
@@ -89,7 +91,9 @@ function AddNewMemory() {
           </div>
 
           <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">
+              Description <span className="text-red-500">*</span>
+            </Label>
             <Textarea
               id="description"
               placeholder="Description"
@@ -99,7 +103,9 @@ function AddNewMemory() {
           </div>
 
           <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="date">Date</Label>
+            <Label htmlFor="date">
+              Date <span className="text-red-500">*</span>
+            </Label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -127,7 +133,9 @@ function AddNewMemory() {
           </div>
 
           <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="location">Location</Label>
+            <Label htmlFor="location">
+              Location <span className="text-red-500">*</span>
+            </Label>
             <Input
               type="text"
               id="location"
