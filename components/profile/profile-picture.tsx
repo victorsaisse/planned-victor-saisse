@@ -17,6 +17,7 @@ export default function ProfilePicture({
       <div className="relative">
         {imageUrl ? (
           <Image
+            priority
             src={imageUrl}
             alt="Profile Picture"
             width={180}

@@ -16,6 +16,7 @@ export default function BlockCard({ memory }: BlockCardProps) {
       }`}
     >
       <Image
+        priority
         src={
           memory.imageUrl ??
           "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-1.jpg"

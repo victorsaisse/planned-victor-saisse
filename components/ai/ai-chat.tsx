@@ -26,57 +26,59 @@ export default function AiChat({ aiChat }: { aiChat: AiChatType }) {
 
 function Chat() {
   return (
-    <div className="w-[350px] h-[400px] bg-white rounded-2xl shadow-md border-[1px] border-[#E0E0E0] flex flex-col max-w-[90vw]">
-      <div className="flex-1 overflow-y-auto p-4">
-        <div className="flex flex-col gap-4">
-          <div className="bg-[#F2F2F3] rounded-md p-4 text-black text-sm font-light self-start max-w-[90%]">
-            <p>Hello, how can I help you today?</p>
-          </div>
-          <div className="bg-black rounded-md p-4 text-white text-sm font-light self-end max-w-[90%]">
-            <p>
-              Hi,I&apos;m looking for a place to stay in Paris. Hi,I&apos;m
-              looking for a place to stay in Paris.
-            </p>
-          </div>
-          <div className="bg-[#F2F2F3] rounded-md p-4 text-black text-sm font-light self-start max-w-[90%]">
-            <p>Hello, how can I help you today?</p>
-          </div>
-          <div className="bg-black rounded-md p-4 text-white text-sm font-light self-end max-w-[90%]">
-            <p>
-              Hi,I&apos;m looking for a place to stay in Paris. Hi,I&apos;m
-              looking for a place to stay in Paris.
-            </p>
-          </div>
-          <div className="bg-[#F2F2F3] rounded-md p-4 text-black text-sm font-light self-start max-w-[90%]">
-            <p>Hello, how can I help you today?</p>
-          </div>
-          <div className="bg-black rounded-md p-4 text-white text-sm font-light self-end max-w-[90%]">
-            <p>
-              Hi,I&apos;m looking for a place to stay in Paris. Hi,I&apos;m
-              looking for a place to stay in Paris.
-            </p>
-          </div>
-          <div className="bg-[#F2F2F3] rounded-md p-4 text-black text-sm font-light self-start max-w-[90%]">
-            <p>Hello, how can I help you today?</p>
-          </div>
-          <div className="bg-black rounded-md p-4 text-white text-sm font-light self-end max-w-[90%]">
-            <p>
-              Hi,I&apos;m looking for a place to stay in Paris. Hi,I&apos;m
-              looking for a place to stay in Paris.
-            </p>
+    <div className="w-[350px] h-[400px] bg-white rounded-2xl shadow-md border-[1px] border-[#E0E0E0] flex flex-col max-w-[90vw] relative">
+      <div className="absolute inset-0 flex flex-col">
+        <div className="flex-1 overflow-y-auto p-4">
+          <div className="flex flex-col gap-4">
+            <div className="bg-[#F2F2F3] rounded-md p-4 text-black text-sm font-light self-start max-w-[90%]">
+              <p>Hello, how can I help you today?</p>
+            </div>
+            <div className="bg-black rounded-md p-4 text-white text-sm font-light self-end max-w-[90%]">
+              <p>
+                Hi,I&apos;m looking for a place to stay in Paris. Hi,I&apos;m
+                looking for a place to stay in Paris.
+              </p>
+            </div>
+            <div className="bg-[#F2F2F3] rounded-md p-4 text-black text-sm font-light self-start max-w-[90%]">
+              <p>Hello, how can I help you today?</p>
+            </div>
+            <div className="bg-black rounded-md p-4 text-white text-sm font-light self-end max-w-[90%]">
+              <p>
+                Hi,I&apos;m looking for a place to stay in Paris. Hi,I&apos;m
+                looking for a place to stay in Paris.
+              </p>
+            </div>
+            <div className="bg-[#F2F2F3] rounded-md p-4 text-black text-sm font-light self-start max-w-[90%]">
+              <p>Hello, how can I help you today?</p>
+            </div>
+            <div className="bg-black rounded-md p-4 text-white text-sm font-light self-end max-w-[90%]">
+              <p>
+                Hi,I&apos;m looking for a place to stay in Paris. Hi,I&apos;m
+                looking for a place to stay in Paris.
+              </p>
+            </div>
+            <div className="bg-[#F2F2F3] rounded-md p-4 text-black text-sm font-light self-start max-w-[90%]">
+              <p>Hello, how can I help you today?</p>
+            </div>
+            <div className="bg-black rounded-md p-4 text-white text-sm font-light self-end max-w-[90%]">
+              <p>
+                Hi,I&apos;m looking for a place to stay in Paris. Hi,I&apos;m
+                looking for a place to stay in Paris.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="flex items-center justify-between gap-2 p-2 border-t border-[#E0E0E0]">
-        <input
-          type="text"
-          placeholder="Type your message here..."
-          className="w-full p-2 rounded-md border-[1px] border-[#E0E0E0] text-sm"
-        />
-        <button className="p-2 rounded-md border-[1px] border-[#E0E0E0] text-sm hover:bg-gray-100 transition-colors">
-          <SendHorizontal size={20} />
-        </button>
+        <div className="flex items-center justify-between gap-2 p-2 border-t border-[#E0E0E0] bg-white">
+          <input
+            type="text"
+            placeholder="Type your message here..."
+            className="w-full p-2 rounded-md border-[1px] border-[#E0E0E0] text-sm"
+          />
+          <button className="p-2 rounded-md border-[1px] border-[#E0E0E0] text-sm hover:bg-gray-100 transition-colors">
+            <SendHorizontal size={20} />
+          </button>
+        </div>
       </div>
     </div>
   );

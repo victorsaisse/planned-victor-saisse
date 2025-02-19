@@ -55,6 +55,7 @@ export default function Plamory() {
                 <div className="@container relative min-h-[30rem] w-full grow max-lg:mx-auto max-lg:max-w-sm">
                   <div className="absolute inset-x-10 top-10 bottom-0 overflow-hidden">
                     <Image
+                      priority
                       className="size-full object-cover object-top"
                       src="/images/feed.png"
                       alt="Feed"
@@ -144,6 +145,7 @@ export default function Plamory() {
                 <div className="@container relative min-h-[10rem] w-full grow max-lg:mx-auto max-lg:max-w-sm">
                   <div className="p-4">
                     <Image
+                      priority
                       className="w-full h-auto object-contain"
                       src="/images/ai-chat.png"
                       alt="AI Chat"
