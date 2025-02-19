@@ -11,10 +11,9 @@ import { useYearsStore } from "@/store/use-years-store";
 import { AnimatePresence, motion } from "framer-motion";
 import moment from "moment";
 import { useQueryState } from "nuqs";
-import { useEffect, useRef } from "react";
 
 export default function Memories({ memories }: { memories: MemoryType[] }) {
-  const { setYears, setCurrentYear } = useYearsStore();
+  const { setCurrentYear } = useYearsStore();
 
   const [viewType] = useQueryState("viewType");
   const [sortBy] = useQueryState("sortBy");
@@ -30,43 +29,9 @@ export default function Memories({ memories }: { memories: MemoryType[] }) {
   );
   const fuseMemories = useFuseSearch(filteredMemories, search);
 
-  useEffect(() => {
-    const years = Array.from(
-      new Set(
-        fuseMemories.map((memory) =>
-          moment(memory.createdAt, "MMM DD, YYYY").year()
-        )
-      )
-    );
-    setYears(years);
-  }, [fuseMemories]);
-
-  const memoryRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = memoryRefs.current.findIndex(
-              (ref) => ref === entry.target
-            );
-            if (index !== -1) {
-              const memory = fuseMemories[index];
-              setCurrentYear(moment(memory.createdAt, "MMM DD, YYYY").year());
-            }
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    memoryRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => observer.disconnect();
-  }, [fuseMemories, setCurrentYear]);
+  const handleInView = (memory: MemoryType) => {
+    setCurrentYear(moment(memory.createdAt, "MMM DD, YYYY").year());
+  };
 
   return (
     <div
@@ -74,16 +39,13 @@ export default function Memories({ memories }: { memories: MemoryType[] }) {
         viewType === "list" ? "gap-8" : "gap-4"
       } items-center`}
     >
-      {fuseMemories.map((memory, index) => (
+      {fuseMemories.map((memory) => (
         <motion.div
-          ref={(el) => {
-            memoryRefs.current[index] = el;
-          }}
           key={memory.id}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          onViewportEnter={() => handleInView(memory)}
           className="w-full flex flex-col gap-4 items-center"
         >
           <AnimatePresence mode="wait" initial={false}>

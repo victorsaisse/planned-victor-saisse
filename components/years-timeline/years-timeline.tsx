@@ -1,14 +1,37 @@
 "use client";
 
+import { MemoryType } from "@/lib/types";
 import { useYearsStore } from "@/store/use-years-store";
 import { motion } from "framer-motion";
+import moment from "moment";
+import { useQueryState } from "nuqs";
+import { useMemo } from "react";
 
-export default function YearsTimeline() {
-  const { years, currentYear } = useYearsStore();
+export default function YearsTimeline({
+  memories,
+}: {
+  memories: MemoryType[];
+}) {
+  const years = useMemo(() => {
+    return Array.from(
+      new Set(
+        memories.map((memory) =>
+          moment(memory.createdAt, "MMM DD, YYYY").year()
+        )
+      )
+    );
+  }, [memories]);
+  const { currentYear } = useYearsStore();
+  const [sortBy] = useQueryState("sortBy");
+
+  const sortedYears =
+    sortBy === "desc"
+      ? years.sort((a, b) => a - b)
+      : years.sort((a, b) => b - a);
 
   return (
     <div className="flex flex-col text-end">
-      {years.map((year, index) => (
+      {sortedYears.map((year, index) => (
         <div key={year}>
           <motion.p
             className={`font-caveat ${
@@ -22,7 +45,7 @@ export default function YearsTimeline() {
           >
             {year}
           </motion.p>
-          {index !== years.length - 1 && (
+          {index !== sortedYears.length - 1 && (
             <p className="font-caveat text-2xl">-</p>
           )}
         </div>
