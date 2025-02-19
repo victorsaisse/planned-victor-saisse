@@ -3,6 +3,7 @@ import Navbar from "@/components/nav/navbar";
 import type { Metadata } from "next";
 import { Caveat, Inter } from "next/font/google";
 import Script from "next/script";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat" });
@@ -39,7 +40,7 @@ export default async function RootLayout({
           `}
         </Script>
         <Navbar />
-        {children}
+        <NuqsAdapter>{children}</NuqsAdapter>
       </body>
     </html>
   );

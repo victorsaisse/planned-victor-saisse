@@ -29,8 +29,13 @@ import {
   Search,
 } from "lucide-react";
 import { useState } from "react";
-
+import { useQueryState } from "nuqs";
 export default function Filters() {
+  const [viewType, setViewType] = useQueryState("viewType", {
+    defaultValue: "grid",
+    parse: (value) => value as "grid" | "list",
+  });
+
   return (
     <div className="w-full flex sm:justify-end gap-2 mt-8 flex-wrap justify-evenly">
       <FilterButton onClick={() => {}}>
@@ -43,10 +48,22 @@ export default function Filters() {
       </FilterButton>
       <FilterButton onClick={() => {}} className="bg-[#F2F2F3] px-2">
         <div className="flex items-center gap-2">
-          <div className="p-1 rounded-sm bg-white hover:bg-white transition-all duration-200">
+          <div
+            onClick={() => setViewType("grid")}
+            className={cn(
+              "p-1 rounded-sm  hover:bg-white transition-all duration-200",
+              viewType === "grid" && "bg-white"
+            )}
+          >
             <Grid2x2 />
           </div>
-          <div className="p-1 rounded-sm  hover:bg-white transition-all duration-200">
+          <div
+            onClick={() => setViewType("list")}
+            className={cn(
+              "p-1 rounded-sm hover:bg-white transition-all duration-200",
+              viewType === "list" && "bg-white"
+            )}
+          >
             <AlignJustify />
           </div>
         </div>
