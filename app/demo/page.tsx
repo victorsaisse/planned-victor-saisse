@@ -8,9 +8,11 @@ import LoadingPage from "@/components/global/loading-page";
 import ProfileBanner from "@/components/profile/banner";
 import ProfileInfo from "@/components/profile/profile-info";
 import ProfilePicture from "@/components/profile/profile-picture";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -81,6 +83,15 @@ function DemoContent() {
               />
             ))}
           </div>
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setIsDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
       <input

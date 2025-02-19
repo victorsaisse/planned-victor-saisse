@@ -1,5 +1,6 @@
 import "@/app/globals.css";
 import Navbar from "@/components/nav/navbar";
+import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { Caveat, Inter } from "next/font/google";
 import Script from "next/script";
@@ -41,6 +42,7 @@ export default async function RootLayout({
         </Script>
         <Navbar />
         <NuqsAdapter>{children}</NuqsAdapter>
+        <Toaster />
       </body>
     </html>
   );
