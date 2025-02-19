@@ -19,9 +19,9 @@ import { uploadImage } from "@/services/image-upload";
 import { useDemoStore } from "@/store/use-demo-store";
 import moment from "moment";
 import Image from "next/image";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, Suspense, useRef, useState } from "react";
 
-export default function Demo() {
+function DemoContent() {
   const { demo, setDemo } = useDemoStore();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -117,5 +117,13 @@ export default function Demo() {
         </div>
       </div>
     </Fragment>
+  );
+}
+
+export default function Demo() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DemoContent />
+    </Suspense>
   );
 }
