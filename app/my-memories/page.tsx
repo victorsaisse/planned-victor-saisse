@@ -1,33 +1,52 @@
 "use client";
 
 import AiChat from "@/components/ai/ai-chat";
-import Divider from "@/components/global/divider";
 import Separator from "@/components/feed/separator";
 import Filters from "@/components/filters/filters";
+import Divider from "@/components/global/divider";
 import SignInWithGoogleButton from "@/components/login/google-button";
 import LogoutButton from "@/components/login/logout-button";
 import ProfileBanner from "@/components/profile/banner";
 import ProfileInfo from "@/components/profile/profile-info";
 import ProfilePicture from "@/components/profile/profile-picture";
 import YearsTimeline from "@/components/years-timeline/years-timeline";
+import { useUserStore } from "@/store/useUserStore";
 import { createClient } from "@/utils/supabase/client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function MyMemories() {
-  const [user, setUser] = useState<any>(null);
-  const supabase = createClient();
+  const { user, setUser } = useUserStore();
 
-  console.log(user);
+  const supabase = createClient();
 
   useEffect(() => {
     const fetchUser = async () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      setUser(user);
+
+      if (user) {
+        setUser({
+          id: user.id!,
+          profile: {
+            name: user.user_metadata.name!,
+            imageUrl: user.user_metadata.avatar_url!,
+            location: "",
+            bannerUrl: "",
+            bio: "",
+          },
+          memories: [],
+          aiChat: {
+            messages: [],
+          },
+        });
+      }
     };
-    fetchUser();
-  }, [supabase.auth]);
+
+    if (!user) {
+      fetchUser();
+    }
+  }, [supabase.auth, setUser, user]);
 
   if (!user) {
     return (
@@ -42,15 +61,15 @@ export default function MyMemories() {
 
   return (
     <>
-      <AiChat />
-      <ProfileBanner />
+      <AiChat aiChat={user.aiChat} />
+      <ProfileBanner profile={user.profile} />
       <div className="max-w-[900px] mx-auto px-2 relative">
         <LogoutButton />
         <ProfilePicture
-          letter={user.user_metadata.name[0]}
-          imageUrl={user.user_metadata.avatar_url}
+          letter={user.profile.name.charAt(0)}
+          imageUrl={user.profile.imageUrl}
         />
-        <ProfileInfo />
+        <ProfileInfo profile={user.profile} />
         <Filters />
         <Divider />
         <div className="grid grid-cols-[auto_1fr] gap-4 mb-8 max-lg:grid-cols-1">

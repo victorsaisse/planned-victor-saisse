@@ -1,10 +1,13 @@
 "use client";
 
+import { AiChatType } from "@/lib/types";
 import { SendHorizontal, Sparkles } from "lucide-react";
 import { useState } from "react";
 
-export default function AiChat() {
+export default function AiChat({ aiChat }: { aiChat: AiChatType }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  console.log("===>> aiChat", aiChat);
 
   return (
     <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-4 items-end">

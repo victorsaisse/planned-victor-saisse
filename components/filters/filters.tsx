@@ -85,6 +85,7 @@ function FilterButton({
 
 function AddNewMemory() {
   const handleUpload = async (file: File) => {
+    // @TODO: Upload file to supabase storage
     console.log(file);
   };
   const [date, setDate] = useState<Date>();

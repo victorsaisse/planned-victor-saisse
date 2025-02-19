@@ -1,17 +1,17 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function signout() {
   const supabase = createClient();
   const { error } = await supabase.auth.signOut();
   if (error) {
-    console.log(error);
     redirect("/error");
   }
 
-  redirect("/demo");
+  revalidatePath("/");
 }
 
 export async function signInWithGoogle() {
@@ -27,7 +27,6 @@ export async function signInWithGoogle() {
   });
 
   if (error) {
-    console.log(error);
     redirect("/error");
   }
 
