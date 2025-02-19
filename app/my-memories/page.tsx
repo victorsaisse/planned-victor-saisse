@@ -10,87 +10,10 @@ import ProfileBanner from "@/components/profile/banner";
 import ProfileInfo from "@/components/profile/profile-info";
 import ProfilePicture from "@/components/profile/profile-picture";
 import YearsTimeline from "@/components/years-timeline/years-timeline";
-import { useUserStore } from "@/store/useUserStore";
-import { createClient } from "@/utils/supabase/client";
-import { useEffect } from "react";
+import { useUserData } from "@/hooks/useUserData";
 
 export default function MyMemories() {
-  const { user, setUser } = useUserStore();
-
-  const supabase = createClient();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (user) {
-        const { data: userData, error } = await supabase
-          .from("users")
-          .select("*")
-          .eq("id", user.id!);
-
-        if (error) {
-          console.error(error);
-        }
-
-        console.log("===>> userData", userData);
-
-        if (!userData?.length) {
-          console.log("===>> userData not found, creating user");
-          const { error: newUserError } = await supabase.from("users").insert({
-            id: user.id!,
-            name: user.user_metadata.name!,
-            imageUrl: user.user_metadata.avatar_url!,
-            bannerUrl:
-              "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-4.jpg",
-            bio: "Add your description here.",
-            location: "Your Location",
-          });
-
-          if (newUserError) {
-            console.error(newUserError);
-          }
-
-          setUser({
-            id: user.id!,
-            profile: {
-              name: user.user_metadata.name!,
-              imageUrl: user.user_metadata.avatar_url!,
-              bannerUrl:
-                "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-4.jpg",
-              bio: "Add your description here.",
-              location: "Your Location",
-            },
-            memories: [],
-            aiChat: {
-              messages: [],
-            },
-          });
-        } else {
-          setUser({
-            id: user.id!,
-            profile: {
-              name: userData[0].name,
-              imageUrl: userData[0].imageUrl,
-              bannerUrl: userData[0].bannerUrl,
-              bio: userData[0].bio,
-              location: userData[0].location,
-            },
-            memories: [],
-            aiChat: {
-              messages: [],
-            },
-          });
-        }
-      }
-    };
-
-    if (!user) {
-      fetchUser();
-    }
-  }, [supabase.auth, setUser, user, supabase]);
+  const { user } = useUserData();
 
   if (!user) {
     return (
