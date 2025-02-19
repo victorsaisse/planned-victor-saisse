@@ -10,7 +10,7 @@ type ListCardProps = {
 
 export default function ListCard({ memory }: ListCardProps) {
   return (
-    <div className="w-full relative overflow-hidden rounded-lg flex flex-col md:flex-row gap-4 bg-[#F2F2F3] border-[1px] border-[#E0E0E0] p-4">
+    <div className="w-full relative overflow-hidden rounded-lg flex flex-col md:flex-row gap-4 bg-[#F2F2F3] border-[1px] border-[#E0E0E0] p-4 shadow-sm">
       <div className="w-full md:w-52 aspect-square relative overflow-hidden rounded-lg">
         <Image
           src={
