@@ -5,7 +5,8 @@ import { useMemo } from "react";
 export function useFilteredMemories(
   memories: MemoryType[],
   dateRange: string | null,
-  sortBy: string | null
+  sortBy: string | null,
+  search: string | null
 ) {
   return useMemo(() => {
     switch (dateRange) {
@@ -39,5 +40,5 @@ export function useFilteredMemories(
       default:
         return memories;
     }
-  }, [memories, dateRange, sortBy]);
+  }, [memories, dateRange, sortBy, search]);
 }

@@ -5,7 +5,8 @@ import { useMemo } from "react";
 export function useSortedMemories(
   memories: MemoryType[],
   sortBy: string | null,
-  dateRange: string | null
+  dateRange: string | null,
+  search: string | null
 ) {
   return useMemo(() => {
     if (sortBy === "desc") {
@@ -21,5 +22,5 @@ export function useSortedMemories(
           moment(a.createdAt, "MMM DD, YYYY").valueOf()
       );
     }
-  }, [memories, sortBy, dateRange]);
+  }, [memories, sortBy, dateRange, search]);
 }
