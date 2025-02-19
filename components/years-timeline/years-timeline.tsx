@@ -1,24 +1,27 @@
-import { MemoryType } from "@/lib/types";
+"use client";
 
-export default function YearsTimeline({
-  memories,
-}: {
-  memories: MemoryType[];
-}) {
-  const years = [2025, 2024, 2023, 2022, 2021, 2020];
-  const currentYear = 2024;
+import { useYearsStore } from "@/store/use-years-store";
+import { motion } from "framer-motion";
+
+export default function YearsTimeline() {
+  const { years, currentYear } = useYearsStore();
 
   return (
     <div className="flex flex-col text-end">
       {years.map((year, index) => (
         <div key={year}>
-          <p
+          <motion.p
             className={`font-caveat ${
               year === currentYear ? "text-3xl font-bold" : "text-base"
             }`}
+            animate={{
+              scale: year === currentYear ? 1.1 : 1,
+              opacity: year === currentYear ? 1 : 0.7,
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
           >
             {year}
-          </p>
+          </motion.p>
           {index !== years.length - 1 && (
             <p className="font-caveat text-2xl">-</p>
           )}
