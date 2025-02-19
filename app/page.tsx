@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingPage from "@/components/global/loading-page";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { redirect, useSearchParams } from "next/navigation";
@@ -16,7 +17,7 @@ function RedirectHandler() {
 export default function Plamory() {
   return (
     <>
-      <Suspense>
+      <Suspense fallback={<LoadingPage />}>
         <RedirectHandler />
       </Suspense>
       <div

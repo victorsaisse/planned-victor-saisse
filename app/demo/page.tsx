@@ -4,6 +4,7 @@ import AiChat from "@/components/ai/ai-chat";
 import Memories from "@/components/feed/memories";
 import Filters from "@/components/filters/filters";
 import Divider from "@/components/global/divider";
+import LoadingPage from "@/components/global/loading-page";
 import ProfileBanner from "@/components/profile/banner";
 import ProfileInfo from "@/components/profile/profile-info";
 import ProfilePicture from "@/components/profile/profile-picture";
@@ -122,7 +123,7 @@ function DemoContent() {
 
 export default function Demo() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoadingPage />}>
       <DemoContent />
     </Suspense>
   );
