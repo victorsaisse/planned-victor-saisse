@@ -16,7 +16,8 @@ export const metadata: Metadata = {
     description: "Your memories, your way",
     url: "https://plamory.com",
     siteName: "Plamory",
-    images: "/opengraph-image.jpg",
+    images:
+      "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/og-image/og-image.png",
   },
 };
 
