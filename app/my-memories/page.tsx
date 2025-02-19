@@ -1,7 +1,7 @@
 "use client";
 
 import AiChat from "@/components/ai/ai-chat";
-import Divider from "@/components/divider";
+import Divider from "@/components/global/divider";
 import Separator from "@/components/feed/separator";
 import Filters from "@/components/filters/filters";
 import SignInWithGoogleButton from "@/components/login/google-button";

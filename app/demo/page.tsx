@@ -1,5 +1,5 @@
 import AiChat from "@/components/ai/ai-chat";
-import Divider from "@/components/divider";
+import Divider from "@/components/global/divider";
 import BlockCard from "@/components/feed/block-card";
 import ListCard from "@/components/feed/list-card";
 import Separator from "@/components/feed/separator";
