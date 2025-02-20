@@ -117,7 +117,7 @@ function DemoContent() {
 
         <ProfileInfo profile={demo.profile} />
 
-        <Filters />
+        <Filters isDemo />
         <Divider />
 
         <div className="grid grid-cols-[auto_1fr] gap-4 mb-8 max-lg:grid-cols-1">

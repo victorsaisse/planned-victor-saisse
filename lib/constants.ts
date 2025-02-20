@@ -20,20 +20,12 @@ export const BANNERS = [
 export const INITIAL_MEMORIES = [
   {
     id: crypto.randomUUID(),
-    title: "First Day at Planned (Manifesting Mode: ON)",
-    description:
-      "Snapped this photo when I visited Planned, because sometimes, you’ve got to picture it before you live it! Here’s to hoping this snapshot becomes reality soon.",
-    createdAt: "Feb 19, 2025",
-    location: "Montreal, QC, Canada",
-  },
-  {
-    id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-0.png",
     title: "First Day at Planned (Manifesting Mode: ON)",
     description:
       "Snapped this photo when I visited Planned, because sometimes, you’ve got to picture it before you live it! Here’s to hoping this snapshot becomes reality soon. 🤞",
-    createdAt: "Feb 19, 2025",
+    createdAt: "Feb 18, 2025",
     location: "Montreal, QC, Canada",
   },
   {

@@ -22,50 +22,88 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
+import { useImageUpload } from "@/hooks/use-image-upload";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { useDemoStore } from "@/store/use-demo-store";
+import { useUserStore } from "@/store/use-user-store";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon, Plus } from "lucide-react";
 import moment from "moment";
 import { useState } from "react";
 
-export default function Filters() {
+export default function Filters({ isDemo }: { isDemo?: boolean }) {
   return (
     <div className="w-full flex sm:justify-end gap-2 mt-8 flex-wrap justify-evenly">
       <SortBy />
       <DateRange />
       <ViewType />
       <SearchFilter />
-      <AddNewMemory />
+      <AddNewMemory isDemo={isDemo} />
     </div>
   );
 }
 
-function AddNewMemory() {
-  const handleUpload = async (file: File) => {
-    // @TODO: Upload file to supabase storage
-    console.log(file);
-  };
-  const mockDate = "Feb 18, 2024";
-  const [date, setDate] = useState<Date>(new Date(mockDate));
+function AddNewMemory({ isDemo }: { isDemo?: boolean }) {
+  const { demo, setDemo } = useDemoStore();
+  const { user, setUser } = useUserStore();
+  const { toast } = useToast();
+
+  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+  const [date, setDate] = useState<Date>(new Date());
   const [dateError, setDateError] = useState<string | null>(null);
-
-  // moment().format("MMM D, YYYY");
-
   const formatedDate = moment(date).format("MMM D, YYYY");
 
-  console.log("===>> formatedDate", formatedDate);
+  const { imageUrl, isUploading, error, handleUpload, handleDelete } =
+    useImageUpload({
+      userId: isDemo ? demo.id : user?.id!,
+      type: isDemo ? "demo" : "user",
+    });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     if (!date) {
       setDateError("Date is required");
       return;
     }
     setDateError(null);
+
+    const newMemory = {
+      id: crypto.randomUUID(),
+      imageUrl: imageUrl ?? undefined,
+      title,
+      description,
+      createdAt: formatedDate,
+      location,
+    };
+
+    if (isDemo) {
+      setDemo({ ...demo, memories: [...demo.memories, newMemory] });
+    } else {
+      if (!user) return;
+      setUser({ ...user, memories: [...user.memories, newMemory] });
+    }
+
+    toast({
+      title: "Memory created",
+      description: "Your memory has been created successfully!",
+    });
+
+    setOpen(false);
+    setTitle("");
+    setDescription("");
+    setLocation("");
+    setDate(new Date());
+    setDateError(null);
+    handleDelete();
   };
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger className="bg-black text-white px-3 py-2 rounded-md flex items-center gap-2 hover:bg-black/80 transition-all duration-200 ">
         <Plus /> New Memory
       </SheetTrigger>
@@ -75,7 +113,13 @@ function AddNewMemory() {
         </SheetHeader>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <ImageUploaderInput handleUpload={handleUpload} />
+          <ImageUploaderInput
+            handleUpload={handleUpload}
+            imageUrl={imageUrl}
+            isUploading={isUploading}
+            error={error}
+            handleDelete={handleDelete}
+          />
 
           <div className="grid w-full items-center gap-1.5">
             <Label htmlFor="title">
@@ -87,6 +131,8 @@ function AddNewMemory() {
               placeholder="Title"
               maxLength={100}
               required
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
 
@@ -99,6 +145,8 @@ function AddNewMemory() {
               placeholder="Description"
               maxLength={500}
               required
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
 
@@ -142,6 +190,8 @@ function AddNewMemory() {
               placeholder="Location"
               maxLength={100}
               required
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
             />
           </div>
 
