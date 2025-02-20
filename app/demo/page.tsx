@@ -17,21 +17,19 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import YearsTimeline from "@/components/years-timeline/years-timeline";
+import { useToast } from "@/hooks/use-toast";
 import { BANNERS } from "@/lib/constants";
 import { uploadImage } from "@/services/image-upload";
 import { useDemoStore } from "@/store/use-demo-store";
-import moment from "moment";
 import Image from "next/image";
 import { Fragment, Suspense, useRef, useState } from "react";
 
 function DemoContent() {
   const { demo, setDemo } = useDemoStore();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { toast } = useToast();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const currentTime = moment().format("MMM D, YYYY");
-  console.log("===>> currentTime", currentTime);
 
   const handleEditProfilePicture = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -52,6 +50,26 @@ function DemoContent() {
         },
       });
     }
+
+    toast({
+      title: "Profile picture updated",
+      description: "Your profile picture has been updated successfully!",
+    });
+  };
+
+  const handleEditProfileBanner = (banner: string) => {
+    setDemo({
+      ...demo,
+      profile: {
+        ...demo.profile,
+        bannerUrl: banner,
+      },
+    });
+    setIsDialogOpen(false);
+    toast({
+      title: "Profile banner updated",
+      description: "Your profile banner has been updated successfully!",
+    });
   };
 
   return (
@@ -70,16 +88,7 @@ function DemoContent() {
                 width={100}
                 height={100}
                 className="rounded-lg object-cover cursor-pointer hover:ring-2 hover:ring-primary transition-all"
-                onClick={() => {
-                  setDemo({
-                    ...demo,
-                    profile: {
-                      ...demo.profile,
-                      bannerUrl: banner,
-                    },
-                  });
-                  setIsDialogOpen(false);
-                }}
+                onClick={() => handleEditProfileBanner(banner)}
               />
             ))}
           </div>

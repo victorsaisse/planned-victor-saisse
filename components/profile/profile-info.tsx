@@ -90,7 +90,7 @@ function ProfileInfoEditDialog({
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Choose your banner</DialogTitle>
+          <DialogTitle>Edit profile info</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSaveProfileInfo}>
           <div className="flex flex-col gap-4">

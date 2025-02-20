@@ -1,3 +1,4 @@
+import { useToast } from "@/hooks/use-toast";
 import { MemoryType } from "@/lib/types";
 import { useDemoStore } from "@/store/use-demo-store";
 import { useUserStore } from "@/store/use-user-store";
@@ -9,6 +10,7 @@ export const useMemoryDelete = (
 ) => {
   const { demo, setDemo } = useDemoStore();
   const { user, setUser } = useUserStore();
+  const { toast } = useToast();
   const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
 
   const handleConfirmDelete = () => setIsConfirmingDelete(true);
@@ -26,6 +28,11 @@ export const useMemoryDelete = (
         memories: user.memories.filter((memo) => memo.id !== memory?.id),
       });
     }
+
+    toast({
+      title: "Memory deleted",
+      description: "Your memory has been deleted",
+    });
   };
 
   return {
