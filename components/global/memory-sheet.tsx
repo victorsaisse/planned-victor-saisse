@@ -19,14 +19,14 @@ import {
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { useImageUpload } from "@/hooks/use-image-upload";
-import { useToast } from "@/hooks/use-toast";
+import { useMemoryDelete } from "@/hooks/use-memory-delete";
+import { useMemoryForm } from "@/hooks/use-memory-form";
 import { MemoryType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useDemoStore } from "@/store/use-demo-store";
 import { useUserStore } from "@/store/use-user-store";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon, Trash2 } from "lucide-react";
-import moment from "moment";
 import { Fragment, useEffect, useState } from "react";
 
 type MemorySheetProps = {
@@ -40,29 +40,9 @@ export default function MemorySheet({
   memory,
   children,
 }: MemorySheetProps) {
-  const { demo, setDemo } = useDemoStore();
-  const { user, setUser } = useUserStore();
-  const { toast } = useToast();
-
+  const { demo } = useDemoStore();
+  const { user } = useUserStore();
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState(memory?.title ?? "");
-  const [description, setDescription] = useState(memory?.description ?? "");
-  const [location, setLocation] = useState(memory?.location ?? "");
-  const [date, setDate] = useState<Date>(
-    new Date(memory?.createdAt ?? new Date())
-  );
-  const [dateError, setDateError] = useState<string | null>(null);
-  const formatedDate = moment(date).format("MMM D, YYYY");
-
-  const resetForm = () => {
-    setOpen(false);
-    setTitle(memory?.title ?? "");
-    setDescription(memory?.description ?? "");
-    setLocation(memory?.location ?? "");
-    setDate(new Date(memory?.createdAt ?? new Date()));
-    setImageUrl(memory?.imageUrl ?? null);
-    setDateError(null);
-  };
 
   const {
     imageUrl,
@@ -76,110 +56,44 @@ export default function MemorySheet({
     type: isDemo ? "demo" : "user",
   });
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const {
+    title,
+    setTitle,
+    description,
+    setDescription,
+    location,
+    setLocation,
+    date,
+    setDate,
+    dateError,
+    handleSubmit,
+  } = useMemoryForm({
+    memory,
+    isDemo,
+    onClose: () => setOpen(false),
+    imageUrl,
+  });
 
-    if (!date) {
-      setDateError("Date is required");
-      return;
-    }
+  const {
+    isConfirmingDelete,
+    setIsConfirmingDelete,
+    handleConfirmDelete,
+    handleDeleteMemory,
+  } = useMemoryDelete(memory, isDemo);
 
-    setDateError(null);
-
-    if (memory) {
-      if (isDemo) {
-        setDemo({
-          ...demo,
-          memories: demo.memories.map((memo) =>
-            memo.id === memory.id
-              ? {
-                  ...memo,
-                  imageUrl: imageUrl ?? undefined,
-                  title,
-                  description,
-                  createdAt: formatedDate,
-                  location,
-                }
-              : memo
-          ),
-        });
-      } else {
-        if (!user) return;
-        setUser({
-          ...user,
-          memories: user.memories.map((memo) =>
-            memo.id === memory.id
-              ? {
-                  ...memo,
-                  imageUrl: imageUrl ?? undefined,
-                  title,
-                  description,
-                  createdAt: formatedDate,
-                  location,
-                }
-              : memo
-          ),
-        });
-      }
-      toast({
-        title: "Memory updated",
-        description: "Your memory has been updated successfully!",
-      });
-    } else {
-      const newMemory = {
-        id: crypto.randomUUID(),
-        imageUrl: imageUrl ?? undefined,
-        title,
-        description,
-        createdAt: formatedDate,
-        location,
-      };
-
-      if (isDemo) {
-        setDemo({ ...demo, memories: [...demo.memories, newMemory] });
-      } else {
-        if (!user) return;
-        setUser({ ...user, memories: [...user.memories, newMemory] });
-      }
-
-      toast({
-        title: "Memory created",
-        description: "Your memory has been created successfully!",
-      });
-    }
-
-    resetForm();
+  const resetForm = () => {
+    setTitle(memory?.title ?? "");
+    setDescription(memory?.description ?? "");
+    setLocation(memory?.location ?? "");
+    setDate(new Date(memory?.createdAt ?? new Date()));
+    setImageUrl(memory?.imageUrl ?? null);
   };
 
   useEffect(() => {
-    if (memory) {
-      setImageUrl(memory.imageUrl ?? null);
-    }
     if (!open) {
       resetForm();
     }
-  }, [memory, open]);
-
-  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
-
-  const handleConfirmDelete = () => {
-    setIsConfirmingDelete(true);
-  };
-
-  const handleDeleteMemory = () => {
-    if (isDemo) {
-      setDemo({
-        ...demo,
-        memories: demo.memories.filter((memo) => memo.id !== memory?.id),
-      });
-    } else {
-      if (!user) return;
-      setUser({
-        ...user,
-        memories: user.memories.filter((memo) => memo.id !== memory?.id),
-      });
-    }
-  };
+  }, [open, memory]);
 
   return (
     <Fragment>

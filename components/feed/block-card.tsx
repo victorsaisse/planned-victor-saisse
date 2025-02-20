@@ -1,4 +1,5 @@
 import EditButton from "@/components/global/edit-button";
+import MemorySheet from "@/components/global/memory-sheet";
 import ShareButton from "@/components/global/share-button";
 import { MemoryType } from "@/lib/types";
 import { useDemoStore } from "@/store/use-demo-store";
@@ -36,7 +37,9 @@ export default function BlockCard({ memory, isDemo }: BlockCardProps) {
           <p className="text-black text-sm py-1 px-3 bg-white font-light italic rounded-full">
             {memory.createdAt}
           </p>
-          <EditButton tooltipText="Edit memory" />
+          <MemorySheet memory={memory} isDemo={isDemo}>
+            <EditButton tooltipText="Edit memory" />
+          </MemorySheet>
           <ShareButton tooltipText="Share memory" />
         </div>
 
