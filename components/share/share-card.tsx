@@ -1,5 +1,6 @@
 "use client";
 
+import { DEFAULT_BANNER_URL } from "@/lib/constants";
 import { MemoryType } from "@/lib/types";
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
@@ -7,16 +8,15 @@ import Image from "next/image";
 
 type ShareCardProps = {
   memory: MemoryType;
-  fallbackImage: string;
 };
 
-export default function ShareCard({ memory, fallbackImage }: ShareCardProps) {
+export default function ShareCard({ memory }: ShareCardProps) {
   return (
     <div
       className="bg-gray-50 h-[100dvh] bg-cover bg-center flex items-center justify-center"
       style={{
         backgroundImage: `url(${
-          memory.imageUrl ? memory.imageUrl : fallbackImage
+          memory.imageUrl ? memory.imageUrl : DEFAULT_BANNER_URL
         })`,
       }}
     >
@@ -34,7 +34,7 @@ export default function ShareCard({ memory, fallbackImage }: ShareCardProps) {
         } w-[80%] max-w-[500px]`}
       >
         <Image
-          src={memory.imageUrl ? memory.imageUrl : fallbackImage}
+          src={memory.imageUrl ? memory.imageUrl : DEFAULT_BANNER_URL}
           alt="memory"
           fill
           className="object-cover"

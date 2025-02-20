@@ -1,9 +1,7 @@
+import { DEFAULT_BANNER_URL } from "@/lib/constants";
 import { useUserStore } from "@/store/use-user-store";
 import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
-
-const DEFAULT_BANNER_URL =
-  "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-4.jpg";
 
 type UserData = {
   id: string;

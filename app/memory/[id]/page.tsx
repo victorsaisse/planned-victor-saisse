@@ -13,8 +13,5 @@ export default function MemoryPage({ params }: { params: { id: string } }) {
     createdAt: "Feb 20, 2025",
   };
 
-  const fallbackImage =
-    "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/og-image/og-image.png";
-
-  return <ShareCard memory={memory} fallbackImage={fallbackImage} />;
+  return <ShareCard memory={memory} />;
 }

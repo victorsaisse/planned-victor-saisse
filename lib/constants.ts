@@ -4,6 +4,9 @@ export const USERS_FOLDER_PATH = "users/";
 
 export const DEMO_FOLDER_PATH = "demo/";
 
+export const DEFAULT_BANNER_URL =
+  "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-4.jpg";
+
 export const BANNERS = [
   "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-1.jpg",
   "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-2.jpg",
