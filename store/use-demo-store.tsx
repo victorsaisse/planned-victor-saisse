@@ -1,5 +1,6 @@
 import { INITIAL_MEMORIES, INITIAL_PROFILE } from "@/lib/constants";
 import { DemoType } from "@/lib/types";
+import { createClient } from "@/utils/supabase/client";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -18,6 +19,32 @@ const initialDemo: DemoType = {
     ],
   },
 };
+
+const seedDemo = async () => {
+  const supabase = createClient();
+
+  const { data: existingMemories } = await supabase
+    .from("memories")
+    .select()
+    .eq("userId", initialDemo.id);
+
+  if (!existingMemories?.length) {
+    const memories = INITIAL_MEMORIES.map((memory) => ({
+      ...memory,
+      userId: initialDemo.id,
+    }));
+
+    const { error: demoError } = await supabase
+      .from("memories")
+      .insert(memories);
+
+    if (demoError) {
+      console.error("Error seeding demo:", demoError);
+    }
+  }
+};
+
+seedDemo();
 
 type DemoState = {
   demo: DemoType;
