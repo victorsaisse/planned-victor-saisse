@@ -1,6 +1,7 @@
 import EditButton from "@/components/global/edit-button";
 import MemorySheet from "@/components/global/memory-sheet";
 import ShareDialog from "@/components/global/share-dialog";
+import { useIsDemo } from "@/hooks/use-is-demo";
 import { MemoryType } from "@/lib/types";
 import { useDemoStore } from "@/store/use-demo-store";
 import { useUserStore } from "@/store/use-user-store";
@@ -9,12 +10,12 @@ import Image from "next/image";
 
 type BlockCardProps = {
   memory: MemoryType;
-  isDemo?: boolean;
 };
 
-export default function BlockCard({ memory, isDemo }: BlockCardProps) {
+export default function BlockCard({ memory }: BlockCardProps) {
   const { demo } = useDemoStore();
   const { user } = useUserStore();
+  const isDemo = useIsDemo();
 
   const fallbackImage = isDemo
     ? demo.profile.bannerUrl
@@ -37,7 +38,7 @@ export default function BlockCard({ memory, isDemo }: BlockCardProps) {
           <p className="text-black text-sm py-1 px-3 bg-white font-light italic rounded-full">
             {memory.createdAt}
           </p>
-          <MemorySheet memory={memory} isDemo={isDemo}>
+          <MemorySheet memory={memory}>
             <EditButton tooltipText="Edit memory" />
           </MemorySheet>
 

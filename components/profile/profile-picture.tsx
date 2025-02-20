@@ -1,4 +1,5 @@
 import EditButton from "@/components/global/edit-button";
+import { useIsDemo } from "@/hooks/use-is-demo";
 import { useToast } from "@/hooks/use-toast";
 import { uploadImage } from "@/services/image-upload";
 import { updateProfile } from "@/services/update-profile";
@@ -10,16 +11,15 @@ import { useRef, useState } from "react";
 type ProfilePictureProps = {
   imageUrl?: string;
   letter: string;
-  isDemo?: boolean;
 };
 
 export default function ProfilePicture({
   imageUrl,
   letter,
-  isDemo,
 }: ProfilePictureProps) {
   const { demo, setDemo } = useDemoStore();
   const { user, setUser } = useUserStore();
+  const isDemo = useIsDemo();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 

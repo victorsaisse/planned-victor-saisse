@@ -22,7 +22,6 @@ function DemoContent() {
       <BannerDialog
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
-        isDemo
       />
 
       <AiChat aiChat={demo.aiChat} />
@@ -35,12 +34,11 @@ function DemoContent() {
         <ProfilePicture
           letter={demo.profile.name.charAt(0)}
           imageUrl={demo.profile.imageUrl}
-          isDemo
         />
 
         <ProfileInfo profile={demo.profile} />
 
-        <Filters isDemo />
+        <Filters />
         <Divider />
 
         <div className="grid grid-cols-[auto_1fr] gap-4 mb-8 max-lg:grid-cols-1">
@@ -48,7 +46,7 @@ function DemoContent() {
             <YearsTimeline memories={demo.memories} />
           </div>
 
-          <Memories memories={demo.memories} isDemo />
+          <Memories memories={demo.memories} />
         </div>
       </div>
     </Fragment>

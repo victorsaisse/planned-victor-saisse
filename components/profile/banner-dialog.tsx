@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useIsDemo } from "@/hooks/use-is-demo";
 import { useToast } from "@/hooks/use-toast";
 import { BANNERS } from "@/lib/constants";
 import { updateProfile } from "@/services/update-profile";
@@ -16,16 +17,15 @@ import Image from "next/image";
 type BannerDialogProps = {
   isDialogOpen: boolean;
   setIsDialogOpen: (isDialogOpen: boolean) => void;
-  isDemo?: boolean;
 };
 
 export default function BannerDialog({
   isDialogOpen,
   setIsDialogOpen,
-  isDemo,
 }: BannerDialogProps) {
   const { demo, setDemo } = useDemoStore();
   const { user, setUser } = useUserStore();
+  const isDemo = useIsDemo();
 
   const { toast } = useToast();
 

@@ -1,5 +1,6 @@
 import EditButton from "@/components/global/edit-button";
 import MemorySheet from "@/components/global/memory-sheet";
+import { useIsDemo } from "@/hooks/use-is-demo";
 import { MemoryType } from "@/lib/types";
 import { useDemoStore } from "@/store/use-demo-store";
 import { useUserStore } from "@/store/use-user-store";
@@ -9,12 +10,12 @@ import ShareDialog from "../global/share-dialog";
 
 type ListCardProps = {
   memory: MemoryType;
-  isDemo?: boolean;
 };
 
-export default function ListCard({ memory, isDemo }: ListCardProps) {
+export default function ListCard({ memory }: ListCardProps) {
   const { demo } = useDemoStore();
   const { user } = useUserStore();
+  const isDemo = useIsDemo();
 
   const fallbackImage = isDemo
     ? demo.profile.bannerUrl
@@ -37,7 +38,7 @@ export default function ListCard({ memory, isDemo }: ListCardProps) {
             {memory.createdAt}
           </p>
 
-          <MemorySheet memory={memory} isDemo={isDemo}>
+          <MemorySheet memory={memory}>
             <EditButton tooltipText="Edit memory" />
           </MemorySheet>
 

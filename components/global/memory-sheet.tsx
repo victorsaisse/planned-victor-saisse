@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { useImageUpload } from "@/hooks/use-image-upload";
+import { useIsDemo } from "@/hooks/use-is-demo";
 import { useMemoryDelete } from "@/hooks/use-memory-delete";
 import { useMemoryForm } from "@/hooks/use-memory-form";
 import { MemoryType } from "@/lib/types";
@@ -30,18 +31,14 @@ import { Calendar as CalendarIcon, Trash2 } from "lucide-react";
 import { Fragment, useCallback, useEffect, useState } from "react";
 
 type MemorySheetProps = {
-  isDemo?: boolean;
   memory?: MemoryType;
   children: React.ReactNode;
 };
 
-export default function MemorySheet({
-  isDemo,
-  memory,
-  children,
-}: MemorySheetProps) {
+export default function MemorySheet({ memory, children }: MemorySheetProps) {
   const { demo } = useDemoStore();
   const { user } = useUserStore();
+  const isDemo = useIsDemo();
   const [open, setOpen] = useState(false);
 
   const {
