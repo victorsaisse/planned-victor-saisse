@@ -1,5 +1,6 @@
 import { useToast } from "@/hooks/use-toast";
 import { MemoryType } from "@/lib/types";
+import { updateMemory } from "@/services/update-memory";
 import { uploadMemory } from "@/services/upload-memory";
 import { useDemoStore } from "@/store/use-demo-store";
 import { useUserStore } from "@/store/use-user-store";
@@ -61,7 +62,7 @@ export function useMemoryForm({
     resetForm();
   };
 
-  const updateExistingMemory = () => {
+  const updateExistingMemory = async () => {
     const updatedMemory = {
       ...memory!,
       imageUrl: imageUrl ?? undefined,
@@ -71,27 +72,38 @@ export function useMemoryForm({
       location,
     };
 
-    if (isDemo) {
-      setDemo({
-        ...demo,
-        memories: demo.memories.map((memo) =>
-          memo.id === memory!.id ? updatedMemory : memo
-        ),
+    try {
+      await updateMemory({ memory: updatedMemory });
+    } catch (error) {
+      console.error("Error updating memory:", error);
+      toast({
+        title: "Error updating memory",
+        description: "Your memory has not been updated successfully!",
+        variant: "destructive",
       });
-    } else {
-      if (!user) return;
-      setUser({
-        ...user,
-        memories: user.memories.map((memo) =>
-          memo.id === memory!.id ? updatedMemory : memo
-        ),
+    } finally {
+      if (isDemo) {
+        setDemo({
+          ...demo,
+          memories: demo.memories.map((memo) =>
+            memo.id === memory!.id ? updatedMemory : memo
+          ),
+        });
+      } else {
+        if (!user) return;
+        setUser({
+          ...user,
+          memories: user.memories.map((memo) =>
+            memo.id === memory!.id ? updatedMemory : memo
+          ),
+        });
+      }
+
+      toast({
+        title: "Memory updated",
+        description: "Your memory has been updated successfully!",
       });
     }
-
-    toast({
-      title: "Memory updated",
-      description: "Your memory has been updated successfully!",
-    });
   };
 
   const createNewMemory = async () => {
