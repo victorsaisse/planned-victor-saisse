@@ -1,3 +1,5 @@
+"use client";
+
 import { DEFAULT_BANNER_URL } from "@/lib/constants";
 import { MemoryType, ProfileType } from "@/lib/types";
 import { useUserStore } from "@/store/use-user-store";
@@ -19,6 +21,7 @@ export function useUserData() {
   const [isLoading, setIsLoading] = useState(true);
 
   const createNewUser = async (authUser: any): Promise<UserData | null> => {
+    console.log("===>> creating new user");
     const newProfile = {
       userId: authUser.id,
       imageUrl: authUser.user_metadata.avatar_url,
@@ -70,18 +73,13 @@ export function useUserData() {
         return;
       }
 
+      console.log("===>> profile", profile);
+
       if (!profile?.length) {
-        const newUser = await createNewUser(authUser);
-        if (newUser)
-          updateUserStore([], {
-            userId: newUser.id,
-            imageUrl: newUser.imageUrl,
-            name: newUser.name,
-            bio: newUser.bio,
-            location: newUser.location,
-            bannerUrl: newUser.bannerUrl,
-          });
+        await createNewUser(authUser);
+        console.log("===>> created new user");
       } else {
+        console.log("===>> got profile");
         const profileData = profile[0];
 
         const { data: memories, error: memoriesError } = await supabase
@@ -110,7 +108,6 @@ export function useUserData() {
     } else {
       setIsLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return { user, isLoading, fetchUserData };
