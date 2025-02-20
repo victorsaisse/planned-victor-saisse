@@ -1,6 +1,6 @@
 import EditButton from "@/components/global/edit-button";
 import MemorySheet from "@/components/global/memory-sheet";
-import ShareButton from "@/components/global/share-button";
+import ShareDialog from "@/components/global/share-dialog";
 import { MemoryType } from "@/lib/types";
 import { useDemoStore } from "@/store/use-demo-store";
 import { useUserStore } from "@/store/use-user-store";
@@ -40,7 +40,8 @@ export default function BlockCard({ memory, isDemo }: BlockCardProps) {
           <MemorySheet memory={memory} isDemo={isDemo}>
             <EditButton tooltipText="Edit memory" />
           </MemorySheet>
-          <ShareButton tooltipText="Share memory" />
+
+          <ShareDialog memory={memory} />
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-2">

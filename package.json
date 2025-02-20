@@ -18,6 +18,7 @@
     "@radix-ui/react-tooltip": "^1.1.8",
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.42.7",
+    "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
@@ -28,6 +29,7 @@
     "next": "14.2.3",
     "nuqs": "^2.4.0",
     "react": "^18",
+    "react-confetti": "^6.2.2",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18",
     "tailwind-merge": "^2.6.0",
@@ -35,6 +37,7 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

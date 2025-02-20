@@ -1,11 +1,11 @@
 import EditButton from "@/components/global/edit-button";
 import MemorySheet from "@/components/global/memory-sheet";
-import ShareButton from "@/components/global/share-button";
 import { MemoryType } from "@/lib/types";
 import { useDemoStore } from "@/store/use-demo-store";
 import { useUserStore } from "@/store/use-user-store";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
+import ShareDialog from "../global/share-dialog";
 
 type ListCardProps = {
   memory: MemoryType;
@@ -40,7 +40,8 @@ export default function ListCard({ memory, isDemo }: ListCardProps) {
           <MemorySheet memory={memory} isDemo={isDemo}>
             <EditButton tooltipText="Edit memory" />
           </MemorySheet>
-          <ShareButton tooltipText="Share memory" />
+
+          <ShareDialog memory={memory} />
         </div>
 
         <div className="flex-1 flex flex-col gap-2 pr-0 md:pr-36 h-full">
