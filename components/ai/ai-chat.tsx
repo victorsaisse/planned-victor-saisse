@@ -28,16 +28,6 @@ export default function AiChat() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  useEffect(() => {
-    if (open) {
-      setTimeout(scrollToBottom, 100);
-    }
-  }, [open]);
-
   const handleAskAI = async (prompt: string) => {
     const response = await fetch("/api/call-open-ai", {
       method: "POST",
@@ -66,6 +56,16 @@ export default function AiChat() {
       handleSendMessage(prompt);
     }
   };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  useEffect(() => {
+    if (open) {
+      setTimeout(scrollToBottom, 100);
+    }
+  }, [open]);
 
   return (
     <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-4 items-end">

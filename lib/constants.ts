@@ -34,7 +34,7 @@ export const INITIAL_MEMORIES = [
     title: "First Day at Planned (Manifesting Mode: ON)",
     description:
       "Snapped this photo when I visited Planned, because sometimes, you’ve got to picture it before you live it! Here’s to hoping this snapshot becomes reality soon. 🤞",
-    createdAt: "Feb 18, 2025",
+    createdAt: "Feb 20, 2025",
     location: "Montreal, QC, Canada",
   },
   {

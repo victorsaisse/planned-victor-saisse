@@ -25,11 +25,11 @@ export default function ImageUploaderInput({
     fileInputRef.current?.click();
   };
 
-  const MAX_FILE_SIZE = 10 * 1024 * 1024;
+  const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
   const validateFile = (file: File): boolean => {
     if (file.size > MAX_FILE_SIZE) {
-      alert("File size must be less than 10MB");
+      alert("File size must be less than 2MB");
       return false;
     }
     if (!file.type.startsWith("image/")) {
@@ -162,7 +162,7 @@ export default function ImageUploaderInput({
             </div>
 
             <p className="mt-1 text-xs text-gray-400 dark:text-neutral-400">
-              Pick a file up to 10MB.
+              Pick a file up to 2MB.
             </p>
           </div>
         </div>
