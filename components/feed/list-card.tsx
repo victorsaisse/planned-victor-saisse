@@ -37,7 +37,7 @@ export default function ListCard({ memory, isDemo }: ListCardProps) {
             {memory.createdAt}
           </p>
 
-          <MemorySheet memoryId={memory.id} isDemo={isDemo}>
+          <MemorySheet memory={memory} isDemo={isDemo}>
             <EditButton tooltipText="Edit memory" />
           </MemorySheet>
           <ShareButton tooltipText="Share memory" />

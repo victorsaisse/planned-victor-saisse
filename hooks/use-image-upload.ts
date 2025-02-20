@@ -8,6 +8,7 @@ type UseImageUploadProps = {
 
 type UseImageUploadReturn = {
   imageUrl: string | null;
+  setImageUrl: (imageUrl: string | null) => void;
   isUploading: boolean;
   error: string | null;
   handleUpload: (file: File) => Promise<void>;
@@ -55,6 +56,7 @@ export const useImageUpload = ({
 
   return {
     imageUrl,
+    setImageUrl,
     isUploading,
     error,
     handleUpload,

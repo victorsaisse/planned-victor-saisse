@@ -19,23 +19,24 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useImageUpload } from "@/hooks/use-image-upload";
 import { useToast } from "@/hooks/use-toast";
+import { MemoryType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useDemoStore } from "@/store/use-demo-store";
 import { useUserStore } from "@/store/use-user-store";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import moment from "moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type MemorySheetProps = {
   isDemo?: boolean;
-  memoryId?: string;
+  memory?: MemoryType;
   children: React.ReactNode;
 };
 
 export default function MemorySheet({
   isDemo,
-  memoryId,
+  memory,
   children,
 }: MemorySheetProps) {
   const { demo, setDemo } = useDemoStore();
@@ -43,18 +44,36 @@ export default function MemorySheet({
   const { toast } = useToast();
 
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
-  const [date, setDate] = useState<Date>(new Date());
+  const [title, setTitle] = useState(memory?.title ?? "");
+  const [description, setDescription] = useState(memory?.description ?? "");
+  const [location, setLocation] = useState(memory?.location ?? "");
+  const [date, setDate] = useState<Date>(
+    new Date(memory?.createdAt ?? new Date())
+  );
   const [dateError, setDateError] = useState<string | null>(null);
   const formatedDate = moment(date).format("MMM D, YYYY");
 
-  const { imageUrl, isUploading, error, handleUpload, handleDelete } =
-    useImageUpload({
-      userId: isDemo ? demo.id : user?.id!,
-      type: isDemo ? "demo" : "user",
-    });
+  const resetForm = () => {
+    setOpen(false);
+    setTitle(memory?.title ?? "");
+    setDescription(memory?.description ?? "");
+    setLocation(memory?.location ?? "");
+    setDate(new Date(memory?.createdAt ?? new Date()));
+    setImageUrl(memory?.imageUrl ?? null);
+    setDateError(null);
+  };
+
+  const {
+    imageUrl,
+    setImageUrl,
+    isUploading,
+    error,
+    handleUpload,
+    handleDelete,
+  } = useImageUpload({
+    userId: isDemo ? demo.id : user?.id!,
+    type: isDemo ? "demo" : "user",
+  });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -66,32 +85,41 @@ export default function MemorySheet({
 
     setDateError(null);
 
-    if (memoryId) {
+    if (memory) {
       if (isDemo) {
-        const demoMemory = demo.memories.find(
-          (memory) => memory.id === memoryId
-        );
-        if (demoMemory) {
-          demoMemory.imageUrl = imageUrl ?? undefined;
-          demoMemory.title = title;
-          demoMemory.description = description;
-          demoMemory.createdAt = formatedDate;
-          demoMemory.location = location;
-        }
+        setDemo({
+          ...demo,
+          memories: demo.memories.map((memo) =>
+            memo.id === memory.id
+              ? {
+                  ...memo,
+                  imageUrl: imageUrl ?? undefined,
+                  title,
+                  description,
+                  createdAt: formatedDate,
+                  location,
+                }
+              : memo
+          ),
+        });
       } else {
         if (!user) return;
-        const userMemory = user.memories.find(
-          (memory) => memory.id === memoryId
-        );
-        if (userMemory) {
-          userMemory.imageUrl = imageUrl ?? undefined;
-          userMemory.title = title;
-          userMemory.description = description;
-          userMemory.createdAt = formatedDate;
-          userMemory.location = location;
-        }
+        setUser({
+          ...user,
+          memories: user.memories.map((memo) =>
+            memo.id === memory.id
+              ? {
+                  ...memo,
+                  imageUrl: imageUrl ?? undefined,
+                  title,
+                  description,
+                  createdAt: formatedDate,
+                  location,
+                }
+              : memo
+          ),
+        });
       }
-
       toast({
         title: "Memory updated",
         description: "Your memory has been updated successfully!",
@@ -119,21 +147,24 @@ export default function MemorySheet({
       });
     }
 
-    setOpen(false);
-    setTitle("");
-    setDescription("");
-    setLocation("");
-    setDate(new Date());
-    setDateError(null);
-    handleDelete();
+    resetForm();
   };
+
+  useEffect(() => {
+    if (memory) {
+      setImageUrl(memory.imageUrl ?? null);
+    }
+    if (!open) {
+      resetForm();
+    }
+  }, [memory, open]);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <div onClick={() => setOpen(true)}>{children}</div>
       <SheetContent className="sm:min-w-[600px] overflow-y-auto">
         <SheetHeader>
-          <SheetTitle>{memoryId ? "Edit Memory" : "New Memory"}</SheetTitle>
+          <SheetTitle>{memory ? "Edit Memory" : "New Memory"}</SheetTitle>
         </SheetHeader>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -219,9 +250,21 @@ export default function MemorySheet({
             />
           </div>
 
-          <Button type="submit" className="w-full mt-4">
-            Create Memory
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              type="button"
+              variant={"outline"}
+              className="w-full mt-4"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              Cancel
+            </Button>
+            <Button type="submit" className="w-full mt-4">
+              {memory ? "Update Memory" : "Create Memory"}
+            </Button>
+          </div>
         </form>
       </SheetContent>
     </Sheet>
