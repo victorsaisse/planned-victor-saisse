@@ -1,4 +1,5 @@
 import { DEFAULT_BANNER_URL } from "@/lib/constants";
+import { MemoryType, ProfileType } from "@/lib/types";
 import { useUserStore } from "@/store/use-user-store";
 import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
@@ -18,39 +19,32 @@ export function useUserData() {
   const [isLoading, setIsLoading] = useState(true);
 
   const createNewUser = async (authUser: any): Promise<UserData | null> => {
-    const newUserData: UserData = {
-      id: authUser.id,
-      name: authUser.user_metadata.name,
+    const newProfile = {
+      userId: authUser.id,
       imageUrl: authUser.user_metadata.avatar_url,
-      bannerUrl: DEFAULT_BANNER_URL,
+      name: authUser.user_metadata.name,
       bio: "Add your description here.",
       location: "Your Location",
+      bannerUrl: DEFAULT_BANNER_URL,
     };
 
-    const { error: newUserError } = await supabase
-      .from("users")
-      .insert(newUserData);
+    const { data: newProfileData, error: newProfileError } = await supabase
+      .from("profiles")
+      .insert(newProfile);
 
-    if (newUserError) {
-      console.error("Error creating new user:", newUserError);
+    if (newProfileError) {
+      console.error("Error creating new profile:", newProfileError);
       return null;
     }
 
-    return newUserData;
+    return newProfileData;
   };
 
-  const updateUserStore = (userData: UserData) => {
+  const updateUserStore = (memories: MemoryType[], profile: ProfileType) => {
     setUser({
-      id: userData.id,
-      profile: {
-        userId: userData.id,
-        name: userData.name,
-        imageUrl: userData.imageUrl,
-        bannerUrl: userData.bannerUrl,
-        bio: userData.bio,
-        location: userData.location,
-      },
-      memories: [],
+      id: profile.userId,
+      profile: profile,
+      memories: memories,
       aiChat: { messages: [] },
     });
   };
@@ -65,23 +59,43 @@ export function useUserData() {
         return;
       }
 
-      const { data: userData, error } = await supabase
-        .from("users")
+      const { data: profile, error } = await supabase
+        .from("profiles")
         .select("*")
-        .eq("id", authUser.id)
-        .single();
+        .eq("userId", authUser.id);
 
       if (error) {
-        console.error("Error fetching user data:", error);
+        console.error("Error fetching profile data:", error);
         setIsLoading(false);
         return;
       }
 
-      if (!userData) {
+      if (!profile?.length) {
         const newUser = await createNewUser(authUser);
-        if (newUser) updateUserStore(newUser);
+        if (newUser)
+          updateUserStore([], {
+            userId: newUser.id,
+            imageUrl: newUser.imageUrl,
+            name: newUser.name,
+            bio: newUser.bio,
+            location: newUser.location,
+            bannerUrl: newUser.bannerUrl,
+          });
       } else {
-        updateUserStore(userData);
+        const profileData = profile[0];
+
+        const { data: memories, error: memoriesError } = await supabase
+          .from("memories")
+          .select("*")
+          .eq("userId", profileData.userId);
+
+        if (memoriesError) {
+          console.error("Error fetching memories data:", memoriesError);
+          setIsLoading(false);
+          return;
+        }
+
+        updateUserStore(memories, profileData);
       }
       setIsLoading(false);
     } catch (error) {
