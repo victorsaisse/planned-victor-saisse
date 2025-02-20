@@ -125,7 +125,7 @@ function DemoContent() {
             <YearsTimeline memories={demo.memories} />
           </div>
 
-          <Memories memories={demo.memories} />
+          <Memories memories={demo.memories} isDemo />
         </div>
       </div>
     </Fragment>

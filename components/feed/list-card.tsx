@@ -1,22 +1,29 @@
 import EditButton from "@/components/global/edit-button";
 import ShareButton from "@/components/global/share-button";
 import { MemoryType } from "@/lib/types";
+import { useDemoStore } from "@/store/use-demo-store";
+import { useUserStore } from "@/store/use-user-store";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
 
 type ListCardProps = {
   memory: MemoryType;
+  isDemo?: boolean;
 };
 
-export default function ListCard({ memory }: ListCardProps) {
+export default function ListCard({ memory, isDemo }: ListCardProps) {
+  const { demo } = useDemoStore();
+  const { user } = useUserStore();
+
+  const fallbackImage = isDemo
+    ? demo.profile.bannerUrl
+    : user?.profile.bannerUrl!;
+
   return (
     <div className="w-full relative overflow-hidden rounded-lg flex flex-col md:flex-row gap-4 bg-[#F2F2F3] border-[1px] border-[#E0E0E0] p-4 shadow-sm">
       <div className="w-full md:w-52 aspect-square relative overflow-hidden rounded-lg">
         <Image
-          src={
-            memory.imageUrl ??
-            "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-1.jpg"
-          }
+          src={memory.imageUrl ? memory.imageUrl : fallbackImage}
           alt="memory"
           fill
           className="object-cover transition-transform duration-300 hover:scale-105"

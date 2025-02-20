@@ -1,14 +1,24 @@
 import EditButton from "@/components/global/edit-button";
 import ShareButton from "@/components/global/share-button";
 import { MemoryType } from "@/lib/types";
+import { useDemoStore } from "@/store/use-demo-store";
+import { useUserStore } from "@/store/use-user-store";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
 
 type BlockCardProps = {
   memory: MemoryType;
+  isDemo?: boolean;
 };
 
-export default function BlockCard({ memory }: BlockCardProps) {
+export default function BlockCard({ memory, isDemo }: BlockCardProps) {
+  const { demo } = useDemoStore();
+  const { user } = useUserStore();
+
+  const fallbackImage = isDemo
+    ? demo.profile.bannerUrl
+    : user?.profile.bannerUrl!;
+
   return (
     <div
       className={`w-full relative overflow-hidden rounded-lg group ${
@@ -16,11 +26,7 @@ export default function BlockCard({ memory }: BlockCardProps) {
       }`}
     >
       <Image
-        priority
-        src={
-          memory.imageUrl ??
-          "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-1.jpg"
-        }
+        src={memory.imageUrl ? memory.imageUrl : fallbackImage}
         alt="memory"
         fill
         className="object-cover transition-transform duration-300 group-hover:scale-105"

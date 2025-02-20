@@ -1,6 +1,7 @@
 "use client";
 
 import AiChat from "@/components/ai/ai-chat";
+import Memories from "@/components/feed/memories";
 import Separator from "@/components/feed/separator";
 import Filters from "@/components/filters/filters";
 import Divider from "@/components/global/divider";
@@ -48,12 +49,17 @@ export default function MyMemories() {
           <div className="px-4 sticky top-4 self-start max-lg:hidden">
             <YearsTimeline memories={user.memories} />
           </div>
-          <div className="flex flex-col gap-4 items-center">
-            <Separator />
-            <p className="text-center text-3xl text-black font-caveat">
-              Start by adding your first memory
-            </p>
-          </div>
+
+          {user.memories.length > 0 ? (
+            <Memories memories={user.memories} />
+          ) : (
+            <div className="flex flex-col gap-4 items-center">
+              <Separator />
+              <p className="text-center text-3xl text-black font-caveat">
+                Start by adding your first memory
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </>

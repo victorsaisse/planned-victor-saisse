@@ -12,7 +12,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import moment from "moment";
 import { useQueryState } from "nuqs";
 
-export default function Memories({ memories }: { memories: MemoryType[] }) {
+export default function Memories({
+  memories,
+  isDemo,
+}: {
+  memories: MemoryType[];
+  isDemo?: boolean;
+}) {
   const { setCurrentYear } = useYearsStore();
 
   const [viewType] = useQueryState("viewType");
@@ -58,7 +64,7 @@ export default function Memories({ memories }: { memories: MemoryType[] }) {
                 transition={{ duration: 0.5 }}
                 className="w-full"
               >
-                <ListCard memory={memory} />
+                <ListCard memory={memory} isDemo={isDemo} />
               </motion.div>
             ) : (
               <motion.div
@@ -69,7 +75,7 @@ export default function Memories({ memories }: { memories: MemoryType[] }) {
                 transition={{ duration: 0.5 }}
                 className="w-full flex flex-col gap-4 items-center"
               >
-                <BlockCard memory={memory} />
+                <BlockCard memory={memory} isDemo={isDemo} />
 
                 <Separator />
               </motion.div>
