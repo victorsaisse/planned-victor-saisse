@@ -27,7 +27,7 @@ import { useDemoStore } from "@/store/use-demo-store";
 import { useUserStore } from "@/store/use-user-store";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon, Trash2 } from "lucide-react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 
 type MemorySheetProps = {
   isDemo?: boolean;
@@ -81,19 +81,19 @@ export default function MemorySheet({
     handleDeleteMemory,
   } = useMemoryDelete(memory, isDemo);
 
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     setTitle(memory?.title ?? "");
     setDescription(memory?.description ?? "");
     setLocation(memory?.location ?? "");
     setDate(new Date(memory?.createdAt ?? new Date()));
     setImageUrl(memory?.imageUrl ?? null);
-  };
+  }, [memory, setTitle, setDescription, setLocation, setDate, setImageUrl]);
 
   useEffect(() => {
     if (!open) {
       resetForm();
     }
-  }, [open, memory]);
+  }, [open, resetForm]);
 
   return (
     <Fragment>
