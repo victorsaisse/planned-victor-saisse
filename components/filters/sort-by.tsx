@@ -27,7 +27,7 @@ export default function SortBy() {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <PopoverTrigger className="bg-white px-3 py-1 rounded-md border-[1px] border-[#E0E0E3] hover:bg-[#F5F5F7] transition-all duration-200 text-sm">
+            <PopoverTrigger className="bg-white px-3 py-2 rounded-md border-[1px] border-[#E0E0E3] hover:bg-[#F5F5F7] transition-all duration-200 text-sm">
               <ArrowUpDown />
             </PopoverTrigger>
           </TooltipTrigger>
