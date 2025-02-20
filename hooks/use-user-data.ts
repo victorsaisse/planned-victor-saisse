@@ -43,6 +43,7 @@ export function useUserData() {
     setUser({
       id: userData.id,
       profile: {
+        userId: userData.id,
         name: userData.name,
         imageUrl: userData.imageUrl,
         bannerUrl: userData.bannerUrl,
