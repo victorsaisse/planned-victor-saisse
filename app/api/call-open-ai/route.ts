@@ -20,10 +20,6 @@ export async function POST(req: NextRequest) {
         role: "user",
         content: prompt,
       },
-      //    ...conversation.map((message) => ({
-      //      role: message.role,
-      //      content: message.content,
-      //    })),
     ],
   });
 
