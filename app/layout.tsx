@@ -12,11 +12,11 @@ const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat" });
 export const metadata: Metadata = {
   title: "Plamory",
   description: "Your memories, your way",
-  metadataBase: new URL("https://plamory.com"),
+  metadataBase: new URL("https://plamory.site"),
   openGraph: {
     title: "Plamory",
     description: "Your memories, your way",
-    url: "https://plamory.com",
+    url: "https://plamory.site",
     siteName: "Plamory",
     images:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/og-image/og-image.png",

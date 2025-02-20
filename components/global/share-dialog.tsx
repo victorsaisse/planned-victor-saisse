@@ -14,7 +14,7 @@ export default function ShareDialog({ memory }: { memory: MemoryType }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
 
-  const shareUrl = `https://plamory.com/memory/${memory.id}`;
+  const shareUrl = `https://plamory.site/memory/${memory.id}`;
 
   return (
     <Dialog
