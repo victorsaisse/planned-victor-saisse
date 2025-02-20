@@ -1,6 +1,7 @@
 "use client";
 
 import ImageUploaderInput from "@/components/file-upload/image-uploader-input";
+import ConfirmationDialog from "@/components/global/confirmation-dialog";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
@@ -24,9 +25,9 @@ import { cn } from "@/lib/utils";
 import { useDemoStore } from "@/store/use-demo-store";
 import { useUserStore } from "@/store/use-user-store";
 import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon, Trash2 } from "lucide-react";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 type MemorySheetProps = {
   isDemo?: boolean;
@@ -159,114 +160,161 @@ export default function MemorySheet({
     }
   }, [memory, open]);
 
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
+
+  const handleConfirmDelete = () => {
+    setIsConfirmingDelete(true);
+  };
+
+  const handleDeleteMemory = () => {
+    if (isDemo) {
+      setDemo({
+        ...demo,
+        memories: demo.memories.filter((memo) => memo.id !== memory?.id),
+      });
+    } else {
+      if (!user) return;
+      setUser({
+        ...user,
+        memories: user.memories.filter((memo) => memo.id !== memory?.id),
+      });
+    }
+  };
+
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <div onClick={() => setOpen(true)}>{children}</div>
-      <SheetContent className="sm:min-w-[600px] overflow-y-auto">
-        <SheetHeader>
-          <SheetTitle>{memory ? "Edit Memory" : "New Memory"}</SheetTitle>
-        </SheetHeader>
+    <Fragment>
+      <ConfirmationDialog
+        open={isConfirmingDelete}
+        setOpen={setIsConfirmingDelete}
+        onConfirm={handleDeleteMemory}
+        onCancel={() => setIsConfirmingDelete(false)}
+        title="Delete Memory"
+        description="Are you sure you want to delete this memory?"
+      />
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <ImageUploaderInput
-            handleUpload={handleUpload}
-            imageUrl={imageUrl}
-            isUploading={isUploading}
-            error={error}
-            handleDelete={handleDelete}
-          />
+      <Sheet open={open} onOpenChange={setOpen}>
+        <div onClick={() => setOpen(true)}>{children}</div>
+        <SheetContent className="sm:min-w-[600px] overflow-y-auto">
+          <SheetHeader>
+            <SheetTitle>{memory ? "Edit Memory" : "New Memory"}</SheetTitle>
+          </SheetHeader>
 
-          <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="title">
-              Title <span className="text-red-500">*</span>
-            </Label>
-            <Input
-              type="text"
-              id="title"
-              placeholder="Title"
-              maxLength={100}
-              required
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <ImageUploaderInput
+              handleUpload={handleUpload}
+              imageUrl={imageUrl}
+              isUploading={isUploading}
+              error={error}
+              handleDelete={handleDelete}
             />
-          </div>
 
-          <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="description">
-              Description <span className="text-red-500">*</span>
-            </Label>
-            <Textarea
-              id="description"
-              placeholder="Description"
-              maxLength={500}
-              required
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
+            <div className="grid w-full items-center gap-1.5">
+              <Label htmlFor="title">
+                Title <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                type="text"
+                id="title"
+                placeholder="Title"
+                maxLength={100}
+                required
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
 
-          <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="date">
-              Date <span className="text-red-500">*</span>
-            </Label>
-            <Popover>
-              <PopoverTrigger asChild>
+            <div className="grid w-full items-center gap-1.5">
+              <Label htmlFor="description">
+                Description <span className="text-red-500">*</span>
+              </Label>
+              <Textarea
+                id="description"
+                placeholder="Description"
+                maxLength={500}
+                required
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+
+            <div className="grid w-full items-center gap-1.5">
+              <Label htmlFor="date">
+                Date <span className="text-red-500">*</span>
+              </Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !date && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon />
+                    {date ? format(date, "PPP") : <span>Pick a date</span>}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={(value) => setDate(value ?? new Date())}
+                    initialFocus
+                    required
+                  />
+                </PopoverContent>
+                {dateError && (
+                  <p className="text-red-500 text-sm">{dateError}</p>
+                )}
+              </Popover>
+            </div>
+
+            <div className="grid w-full items-center gap-1.5">
+              <Label htmlFor="location">
+                Location <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                type="text"
+                id="location"
+                placeholder="Location"
+                maxLength={100}
+                required
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
+            </div>
+
+            <div className="flex gap-2">
+              {memory && (
                 <Button
+                  type="button"
                   variant={"outline"}
-                  className={cn(
-                    "w-full justify-start text-left font-normal",
-                    !date && "text-muted-foreground"
-                  )}
+                  className="mt-4"
+                  onClick={() => {
+                    handleConfirmDelete();
+                  }}
                 >
-                  <CalendarIcon />
-                  {date ? format(date, "PPP") : <span>Pick a date</span>}
+                  <Trash2 />
                 </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={(value) => setDate(value ?? new Date())}
-                  initialFocus
-                  required
-                />
-              </PopoverContent>
-              {dateError && <p className="text-red-500 text-sm">{dateError}</p>}
-            </Popover>
-          </div>
+              )}
 
-          <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="location">
-              Location <span className="text-red-500">*</span>
-            </Label>
-            <Input
-              type="text"
-              id="location"
-              placeholder="Location"
-              maxLength={100}
-              required
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-            />
-          </div>
-
-          <div className="flex gap-2">
-            <Button
-              type="button"
-              variant={"outline"}
-              className="w-full mt-4"
-              onClick={() => {
-                setOpen(false);
-              }}
-            >
-              Cancel
-            </Button>
-            <Button type="submit" className="w-full mt-4">
-              {memory ? "Update Memory" : "Create Memory"}
-            </Button>
-          </div>
-        </form>
-      </SheetContent>
-    </Sheet>
+              <Button
+                type="button"
+                variant={"outline"}
+                className="w-full mt-4"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" className="w-full mt-4">
+                {memory ? "Update Memory" : "Create Memory"}
+              </Button>
+            </div>
+          </form>
+        </SheetContent>
+      </Sheet>
+    </Fragment>
   );
 }
