@@ -21,7 +21,6 @@ export function useUserData() {
   const [isLoading, setIsLoading] = useState(true);
 
   const createNewUser = async (authUser: any): Promise<UserData | null> => {
-    console.log("===>> creating new user");
     const newProfile = {
       userId: authUser.id,
       imageUrl: authUser.user_metadata.avatar_url,
@@ -73,11 +72,8 @@ export function useUserData() {
         return;
       }
 
-      console.log("===>> profile", profile);
-
       if (!profile?.length) {
         await createNewUser(authUser);
-        console.log("===>> created new user");
         updateUserStore([], {
           userId: authUser.id,
           imageUrl: authUser.user_metadata.avatar_url,
@@ -87,7 +83,6 @@ export function useUserData() {
           bannerUrl: DEFAULT_BANNER_URL,
         });
       } else {
-        console.log("===>> got profile");
         const profileData = profile[0];
 
         const { data: memories, error: memoriesError } = await supabase
