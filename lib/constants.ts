@@ -1,3 +1,5 @@
+import { MemoryType, ProfileType } from "@/lib/types";
+
 export const PLAMORY_BUCKET_NAME = "plamory";
 
 export const USERS_FOLDER_PATH = "users/";
@@ -22,6 +24,7 @@ export const BANNERS = [
 
 export const INITIAL_MEMORIES = [
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-0.png",
@@ -32,6 +35,7 @@ export const INITIAL_MEMORIES = [
     location: "Montreal, QC, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-1.png",
@@ -42,6 +46,7 @@ export const INITIAL_MEMORIES = [
     location: "Rio de Janeiro, Brazil ",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-2.png",
@@ -52,6 +57,7 @@ export const INITIAL_MEMORIES = [
     location: "Rio de Janeiro, Brazil",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-3.png",
@@ -62,6 +68,7 @@ export const INITIAL_MEMORIES = [
     location: "Rio de Janeiro, Brazil",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-4.png",
@@ -72,6 +79,7 @@ export const INITIAL_MEMORIES = [
     location: "Montreal, QC, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-5.png",
@@ -82,6 +90,7 @@ export const INITIAL_MEMORIES = [
     location: "Saint-Bruno, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-6.png",
@@ -92,6 +101,7 @@ export const INITIAL_MEMORIES = [
     location: "Montreal, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-7.png",
@@ -102,6 +112,7 @@ export const INITIAL_MEMORIES = [
     location: "Montreal, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-8.png",
@@ -112,6 +123,7 @@ export const INITIAL_MEMORIES = [
     location: "Rome, Italy",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-9.png",
@@ -122,6 +134,7 @@ export const INITIAL_MEMORIES = [
     location: "Rome, Italy",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-10.png",
@@ -132,6 +145,7 @@ export const INITIAL_MEMORIES = [
     location: "Paris, France",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-11.png",
@@ -142,6 +156,7 @@ export const INITIAL_MEMORIES = [
     location: "Montreal, QC, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-12.png",
@@ -152,6 +167,7 @@ export const INITIAL_MEMORIES = [
     location: "Montreal, QC, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-13.png",
@@ -162,6 +178,7 @@ export const INITIAL_MEMORIES = [
     location: "Hampstead, QC, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-14.png",
@@ -172,6 +189,7 @@ export const INITIAL_MEMORIES = [
     location: "Montreal, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-15.png",
@@ -182,6 +200,7 @@ export const INITIAL_MEMORIES = [
     location: "Quebec City, QC, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-16.png",
@@ -192,6 +211,7 @@ export const INITIAL_MEMORIES = [
     location: "Montreal, QC, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-17.png",
@@ -202,6 +222,7 @@ export const INITIAL_MEMORIES = [
     location: "Rivière-Éternité, Québec",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-18.png",
@@ -212,6 +233,7 @@ export const INITIAL_MEMORIES = [
     location: "Laval, QC, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-19.png",
@@ -222,6 +244,7 @@ export const INITIAL_MEMORIES = [
     location: "Montreal, QC, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-20.png",
@@ -232,6 +255,7 @@ export const INITIAL_MEMORIES = [
     location: "Montreal, QC, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-21.png",
@@ -242,6 +266,7 @@ export const INITIAL_MEMORIES = [
     location: "Montreal, QC, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-22.png",
@@ -252,6 +277,7 @@ export const INITIAL_MEMORIES = [
     location: "Rio de Janeiro, Brazil",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-23.png",
@@ -262,6 +288,7 @@ export const INITIAL_MEMORIES = [
     location: "Rio de Janeiro, Brazil",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-24.png",
@@ -272,6 +299,7 @@ export const INITIAL_MEMORIES = [
     location: "Rio de Janeiro, Brazil",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-25.png",
@@ -282,6 +310,7 @@ export const INITIAL_MEMORIES = [
     location: "Rio de Janeiro, Brazil",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-26.png",
@@ -292,6 +321,7 @@ export const INITIAL_MEMORIES = [
     location: "Rio de Janeiro, Brazil",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-27.png",
@@ -302,6 +332,7 @@ export const INITIAL_MEMORIES = [
     location: "Toronto, ON, Canada",
   },
   {
+    userId: crypto.randomUUID(),
     id: crypto.randomUUID(),
     imageUrl:
       "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/feed/image-28.png",
@@ -311,9 +342,10 @@ export const INITIAL_MEMORIES = [
     createdAt: "Sep 15, 2004",
     location: "Rio de Janeiro, Brazil ",
   },
-];
+] as MemoryType[];
 
 export const INITIAL_PROFILE = {
+  userId: crypto.randomUUID(),
   imageUrl:
     "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/profile/profile-pic.jpg",
   name: "Victor Saisse",
@@ -321,7 +353,7 @@ export const INITIAL_PROFILE = {
   location: "Montreal, QC, Canada",
   bannerUrl:
     "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-1.jpg",
-};
+} as ProfileType;
 
 export const RANGE_OPTIONS = [
   {

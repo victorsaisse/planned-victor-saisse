@@ -6,6 +6,7 @@ export type UserType = {
 };
 
 export type MemoryType = {
+  userId: string;
   id: string;
   imageUrl?: string;
   title: string;
@@ -15,6 +16,7 @@ export type MemoryType = {
 };
 
 export type ProfileType = {
+  userId: string;
   imageUrl: string;
   name: string;
   bio: string;

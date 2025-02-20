@@ -95,6 +95,7 @@ export function useMemoryForm({
 
   const createNewMemory = () => {
     const newMemory = {
+      userId: isDemo ? demo.id : user!.id,
       id: crypto.randomUUID(),
       imageUrl: imageUrl ?? undefined,
       title,
