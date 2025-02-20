@@ -1,14 +1,14 @@
 import Link from "next/link";
 
-export default function ErrorPage() {
+export default function NotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="text-center p-8">
         <h1 className="text-6xl font-bold text-gray-900 mb-4 font-caveat">
-          Oops!
+          404
         </h1>
         <p className="text-base text-gray-600 mb-6">
-          Sorry, something went wrong.
+          Sorry, the page you are looking for does not exist.
         </p>
         <Link
           href="/"
