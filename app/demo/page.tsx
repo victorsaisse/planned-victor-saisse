@@ -6,109 +6,23 @@ import Filters from "@/components/filters/filters";
 import Divider from "@/components/global/divider";
 import LoadingPage from "@/components/global/loading-page";
 import ProfileBanner from "@/components/profile/banner";
+import BannerDialog from "@/components/profile/banner-dialog";
 import ProfileInfo from "@/components/profile/profile-info";
 import ProfilePicture from "@/components/profile/profile-picture";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import YearsTimeline from "@/components/years-timeline/years-timeline";
-import { useToast } from "@/hooks/use-toast";
-import { BANNERS } from "@/lib/constants";
-import { uploadImage } from "@/services/image-upload";
 import { useDemoStore } from "@/store/use-demo-store";
-import Image from "next/image";
-import { Fragment, Suspense, useRef, useState } from "react";
+import { Fragment, Suspense, useState } from "react";
 
 function DemoContent() {
-  const { demo, setDemo } = useDemoStore();
+  const { demo } = useDemoStore();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { toast } = useToast();
-
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleEditProfilePicture = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append("file", file);
-    const data = await uploadImage({ formData, userId: demo.id, type: "demo" });
-
-    if (data) {
-      setDemo({
-        ...demo,
-        profile: {
-          ...demo.profile,
-          imageUrl: data,
-        },
-      });
-    }
-
-    toast({
-      title: "Profile picture updated",
-      description: "Your profile picture has been updated successfully!",
-    });
-  };
-
-  const handleEditProfileBanner = (banner: string) => {
-    setDemo({
-      ...demo,
-      profile: {
-        ...demo.profile,
-        bannerUrl: banner,
-      },
-    });
-    setIsDialogOpen(false);
-    toast({
-      title: "Profile banner updated",
-      description: "Your profile banner has been updated successfully!",
-    });
-  };
 
   return (
     <Fragment>
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Choose your banner</DialogTitle>
-          </DialogHeader>
-          <div className="grid grid-cols-5 gap-4 pt-4">
-            {BANNERS.map((banner) => (
-              <Image
-                key={banner}
-                src={banner}
-                alt="banner"
-                width={100}
-                height={100}
-                className="rounded-lg object-cover cursor-pointer hover:ring-2 hover:ring-primary transition-all"
-                onClick={() => handleEditProfileBanner(banner)}
-              />
-            ))}
-          </div>
-          <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setIsDialogOpen(false)}
-            >
-              Cancel
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-      <input
-        className="hidden"
-        type="file"
-        accept="image/*"
-        ref={fileInputRef}
-        onChange={handleEditProfilePicture}
+      <BannerDialog
+        isDialogOpen={isDialogOpen}
+        setIsDialogOpen={setIsDialogOpen}
+        isDemo
       />
 
       <AiChat aiChat={demo.aiChat} />
@@ -119,9 +33,9 @@ function DemoContent() {
 
       <div className="max-w-[900px] mx-auto px-2 relative">
         <ProfilePicture
-          onEdit={() => fileInputRef.current?.click()}
           letter={demo.profile.name.charAt(0)}
           imageUrl={demo.profile.imageUrl}
+          isDemo
         />
 
         <ProfileInfo profile={demo.profile} />

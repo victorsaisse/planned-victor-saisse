@@ -9,13 +9,16 @@ import LoadingPage from "@/components/global/loading-page";
 import SignInWithGoogleButton from "@/components/login/google-button";
 import LogoutButton from "@/components/login/logout-button";
 import ProfileBanner from "@/components/profile/banner";
+import BannerDialog from "@/components/profile/banner-dialog";
 import ProfileInfo from "@/components/profile/profile-info";
 import ProfilePicture from "@/components/profile/profile-picture";
 import YearsTimeline from "@/components/years-timeline/years-timeline";
 import { useUserData } from "@/hooks/use-user-data";
+import { useState } from "react";
 
 export default function MyMemories() {
   const { user, isLoading } = useUserData();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   if (isLoading) {
     return <LoadingPage />;
@@ -34,8 +37,15 @@ export default function MyMemories() {
 
   return (
     <>
+      <BannerDialog
+        isDialogOpen={isDialogOpen}
+        setIsDialogOpen={setIsDialogOpen}
+      />
       <AiChat aiChat={user.aiChat} />
-      <ProfileBanner profile={user.profile} />
+      <ProfileBanner
+        profile={user.profile}
+        onEdit={() => setIsDialogOpen(true)}
+      />
       <div className="max-w-[900px] mx-auto px-2 relative">
         <LogoutButton />
         <ProfilePicture

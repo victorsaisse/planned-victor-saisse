@@ -10,9 +10,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useIsDemo } from "@/hooks/use-is-demo";
 import { useToast } from "@/hooks/use-toast";
 import { ProfileType } from "@/lib/types";
+import { updateProfile } from "@/services/update-profile";
 import { useDemoStore } from "@/store/use-demo-store";
+import { useUserStore } from "@/store/use-user-store";
 import { MapPin } from "lucide-react";
 import { Fragment, useState } from "react";
 
@@ -60,37 +63,68 @@ function ProfileInfoEditDialog({
   setIsDialogOpen: (isOpen: boolean) => void;
 }) {
   const { demo, setDemo } = useDemoStore();
-  const { toast } = useToast();
+  const { user, setUser } = useUserStore();
+  const isDemo = useIsDemo();
 
+  const { toast } = useToast();
   const [name, setName] = useState(profile.name);
   const [bio, setBio] = useState(profile.bio);
   const [location, setLocation] = useState(profile.location);
 
-  const handleSaveProfileInfo = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSaveProfileInfo = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setDemo({
-      ...demo,
-      profile: {
-        ...profile,
+    if (isDemo) {
+      setDemo({
+        ...demo,
+        profile: {
+          ...profile,
+          name,
+          bio,
+          location,
+        },
+      });
+
+      toast({
+        title: "Profile info updated",
+        description: "Your profile info has been updated successfully!",
+      });
+    } else {
+      if (!user) return;
+
+      const updatedUserProfile = {
+        ...user.profile,
         name,
         bio,
         location,
-      },
-    });
+      };
+
+      try {
+        await updateProfile({ profile: updatedUserProfile });
+      } catch (error) {
+        console.error("Error updating user:", error);
+        toast({
+          title: "Error updating profile info",
+          description: "Your profile info has not been updated",
+          variant: "destructive",
+        });
+      } finally {
+        setUser({ ...user, profile: updatedUserProfile });
+        toast({
+          title: "Profile info updated",
+          description: "Your profile info has been updated successfully!",
+        });
+      }
+    }
 
     setIsDialogOpen(false);
-    toast({
-      title: "Profile info updated",
-      description: "Your profile info has been updated successfully!",
-    });
   };
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit profile info</DialogTitle>
+          <DialogTitle>Edit Profile Info</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSaveProfileInfo}>
           <div className="flex flex-col gap-4">
