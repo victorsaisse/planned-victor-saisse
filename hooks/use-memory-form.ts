@@ -1,5 +1,6 @@
 import { useToast } from "@/hooks/use-toast";
 import { MemoryType } from "@/lib/types";
+import { uploadMemory } from "@/services/upload-memory";
 import { useDemoStore } from "@/store/use-demo-store";
 import { useUserStore } from "@/store/use-user-store";
 import moment from "moment";
@@ -93,7 +94,7 @@ export function useMemoryForm({
     });
   };
 
-  const createNewMemory = () => {
+  const createNewMemory = async () => {
     const newMemory = {
       userId: isDemo ? demo.id : user!.id,
       id: crypto.randomUUID(),
@@ -105,16 +106,37 @@ export function useMemoryForm({
     };
 
     if (isDemo) {
-      setDemo({ ...demo, memories: [...demo.memories, newMemory] });
+      try {
+        await uploadMemory({ memory: newMemory });
+      } catch (error) {
+        console.error("Error uploading memory:", error);
+      } finally {
+        setDemo({ ...demo, memories: [...demo.memories, newMemory] });
+        toast({
+          title: "Memory created",
+          description: "Your memory has been created successfully!",
+        });
+      }
     } else {
       if (!user) return;
-      setUser({ ...user, memories: [...user.memories, newMemory] });
-    }
 
-    toast({
-      title: "Memory created",
-      description: "Your memory has been created successfully!",
-    });
+      try {
+        await uploadMemory({ memory: newMemory });
+      } catch (error) {
+        console.error("Error uploading memory:", error);
+        toast({
+          title: "Error uploading memory",
+          variant: "destructive",
+          description: "Your memory has not been created successfully!",
+        });
+      } finally {
+        setUser({ ...user, memories: [...user.memories, newMemory] });
+        toast({
+          title: "Memory created",
+          description: "Your memory has been created successfully!",
+        });
+      }
+    }
   };
 
   return {
