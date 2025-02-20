@@ -41,7 +41,7 @@ export default function MyMemories() {
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
       />
-      <AiChat aiChat={user.aiChat} />
+      <AiChat />
       <ProfileBanner
         profile={user.profile}
         onEdit={() => setIsDialogOpen(true)}

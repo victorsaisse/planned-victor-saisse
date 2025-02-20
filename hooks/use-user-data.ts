@@ -47,7 +47,6 @@ export function useUserData() {
       id: profile.userId,
       profile: profile,
       memories: memories,
-      aiChat: { messages: [] },
     });
   };
 

@@ -24,7 +24,7 @@ function DemoContent() {
         setIsDialogOpen={setIsDialogOpen}
       />
 
-      <AiChat aiChat={demo.aiChat} />
+      <AiChat />
       <ProfileBanner
         profile={demo.profile}
         onEdit={() => setIsDialogOpen(true)}

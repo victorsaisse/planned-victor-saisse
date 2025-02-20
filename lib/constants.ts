@@ -22,6 +22,9 @@ export const BANNERS = [
   "https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/bgs/gradient-10.jpg",
 ];
 
+export const INITIAL_PROMPT =
+  "Hello! I'm Planny, the Plamory Elf. How can I help you today?";
+
 export const INITIAL_MEMORIES = [
   {
     userId: crypto.randomUUID(),

@@ -8,16 +8,6 @@ const initialDemo: DemoType = {
   id: crypto.randomUUID(),
   memories: INITIAL_MEMORIES,
   profile: INITIAL_PROFILE,
-  aiChat: {
-    messages: [
-      {
-        content:
-          "Hello! I'm Planny, the Plamory Elf. How can I help you today?",
-        role: "assistant",
-        createdAt: new Date().toISOString(),
-      },
-    ],
-  },
 };
 
 const seedDemo = async () => {
