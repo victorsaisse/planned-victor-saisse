@@ -78,6 +78,14 @@ export function useUserData() {
       if (!profile?.length) {
         await createNewUser(authUser);
         console.log("===>> created new user");
+        updateUserStore([], {
+          userId: authUser.id,
+          imageUrl: authUser.user_metadata.avatar_url,
+          name: authUser.user_metadata.name,
+          bio: "Add your description here.",
+          location: "Your Location",
+          bannerUrl: DEFAULT_BANNER_URL,
+        });
       } else {
         console.log("===>> got profile");
         const profileData = profile[0];
