@@ -81,7 +81,7 @@ utils/                # Helper functions
 
 ![Screenshot 2](/public/about/screenshot-2.png)
 
-### Video Demo
+### Video Demo 📹 (Click to watch)
 
 [Watch Demo](https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/video/demo.mp4)
 
