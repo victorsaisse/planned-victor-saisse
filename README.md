@@ -80,16 +80,11 @@ type MemoryType = {
 
 ### Screenshots
 
-[Insert screenshot 1 description]
-![Screenshot 1](/path/to/screenshot1.png)
+Feed Page
+![Screenshot 1](/public/about/screenshot-1.png)
 
-[Insert screenshot 2 description]
-![Screenshot 2](/path/to/screenshot2.png)
-
-### Video Demo
-
-[Insert video demo description]
-[Video Demo Link](/path/to/videoDemo.mp4)
+New Memory Dialog
+![Screenshot 2](/public/about/screenshot-2.png)
 
 ## **Potential Improvements**
 
