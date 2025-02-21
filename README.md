@@ -1,119 +1,185 @@
-# **Plamory - Memory Management Application**
+# Plamory - AI-Powered Memory Management
 
-## **Overview**
+![Plamory Demo Banner](/public/about/screenshot-1.png)
 
-Plamory is a Next.js application designed for managing and organizing personal memories with AI integration. Built with TypeScript, Tailwind CSS, Shadcn, and Supabase, it offers a comprehensive platform for users to store, search, and interact with their memories.
+## 🌟 Overview
 
-## **Tech Stack**
+Plamory is a **Next.js** application designed to help users manage and organize personal memories with **AI integration**. Built with **TypeScript**, **Tailwind CSS**, **Shadcn**, and **Supabase**, it provides a seamless platform to store, search, and interact with memories in a visually appealing and secure way.
+
+---
+
+## 🛠️ Tech Stack
 
 - **Framework:** Next.js 14.2.3
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
-- **Database:** Supabase
+- **Database:** Supabase (PostgreSQL)
 - **State Management:** Zustand
-- **UI Components:** Radix UI
-- **Authentication:** Supabase Auth
-- **Search:** Fuse.js
-- **Animations:** Motion
-- **UI Enhancements:** Shadcn
+- **UI Components:** Radix UI + Shadcn
+- **Authentication:** Supabase Auth (Google OAuth)
+- **Search:** Fuse.js (client-side search)
+- **Animations:** Motion (Framer Motion)
 
-## **Project Structure**
+---
 
-- **app/**: Next.js app directory
-  - **demo/**: Demo page
-  - **my-memories/**: User memories page
-  - **layout.tsx**: Root layout
-- **components/**: Reusable components
-  - **ai/**: AI chat components
-  - **feed/**: Memory feed components
-  - **global/**: Global components
-  - **nav/**: Navigation components
-  - **profile/**: Profile components
-  - **ui/**: UI components
-- **hooks/**: Custom React hooks
-- **lib/**: Utilities and types
-- **public/**: Static assets
-- **store/**: Zustand stores
-- **styles/**: Global styles
-- **utils/**: Helper functions
+## 🗂️ Project Structure
 
-## **Key Features**
+```plaintext
+app/                  # Next.js app directory
+  demo/               # Demo page
+  my-memories/        # User memories page
+  layout.tsx          # Root layout
+components/           # Reusable components
+  ai/                 # AI chat components
+  feed/               # Memory feed components
+  global/             # Global components
+  nav/                # Navigation components
+  profile/            # Profile components
+  ui/                 # UI components
+hooks/                # Custom React hooks
+lib/                  # Utilities and types
+public/               # Static assets
+store/                # Zustand stores
+styles/               # Global styles
+utils/                # Helper functions
+```
 
-### 1. Authentication
+---
+
+## ✨ Key Features
+
+### 1. **Authentication**
 
 - Google OAuth integration
 - Secure session management
-- Demo mode support
+- Demo mode for zero-commitment trial
 
-### 2. Memory Management
+### 2. **Memory Management**
 
-**Memory Type Structure**
+- Store memories with titles, descriptions, locations, and images
+- AI-powered search and insights
 
-```typescript
-type MemoryType = {
-  userId: string;
-  id: string;
-  imageUrl: string;
-  title: string;
-  description: string;
-  createdAt: string;
-  location: string;
-};
-```
+### 3. **AI Integration**
 
-### 3. AI Integration
+- Chat interface for memory insights and help
 
-- Chat interface for help and insights in memories
+### 4. **Performance Optimizations**
 
-### 4. Performance Optimizations
-
-- Image Optimization
-- Client-side Search
+- Image optimization
+- Client-side search with Fuse.js
 - Route-based code splitting
-- Persistent caching with Zustand
 
-### 5. UI Enhancements
+---
 
-- **Shadcn Integration:** Shadcn is a utility library that enhances the UI by providing a set of functions for handling common UI tasks, such as color manipulation, typography, and layout calculations. It helps to streamline the development process by simplifying the implementation of complex UI elements and ensuring consistency across the application.
+## 🖼️ Screenshots & Demo
 
-## **Screenshots and Video Demo**
+### Feed Page
 
-### Screenshots
-
-Feed Page
 ![Screenshot 1](/public/about/screenshot-1.png)
 
-New Memory Dialog
+### New Memory Dialog
+
 ![Screenshot 2](/public/about/screenshot-2.png)
 
-Video Demo
-![Video Demo Link](https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/video/demo.mp4)
+### Video Demo
 
-## **Potential Improvements**
+![Watch Demo](https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/video/demo.mp4)
 
-- Implement React Query for data fetching
-- Add Service Worker for offline support
-- Implement virtual scrolling for memory feed
-- Add image compression before upload
-- Implement proper error boundaries
+---
 
-## **Development Setup**
+## 🚀 Local Development Setup
 
-- Install dependencies: `npm install`
-- Set up environment variables:
-  - `NEXT_PUBLIC_SUPABASE_URL=your_supabase_url`
-  - `NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key`
-- Run development server: `npm run dev`
+### Prerequisites
 
-## **Build & Deployment**
+- Node.js 18+
+- npm 9+
+- Supabase account
+- OpenAI API key
 
-- `npm run build`
-- `npm run start`
+### Quick Start
 
-## **Testing**
+```bash
+git clone https://github.com/victorsaisse/plamory.git
+cd plamory
+npm install
+cp .env.example .env.local
+```
 
-Currently, the project lacks testing. Recommended additions:
+### Environment Variables
 
-- Unit tests with Jest
-- Integration tests with Cypress
-- E2E tests with Playwright
+```ini
+# .env.local
+NEXT_PUBLIC_SUPABASE_URL=your_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+OPENAI_API_KEY=your_openai_key
+```
+
+---
+
+## 🗄️ Supabase Configuration
+
+### Database Schema
+
+1. Create `memories` table:
+
+```sql
+create table memories (
+  id uuid primary key default uuid_generate_v4(),
+  user_id uuid references auth.users not null,
+  title text not null,
+  description text,
+  image_url text,
+  location text,
+  created_at timestamp with time zone default now()
+);
+```
+
+2. Enable Row Level Security:
+
+```sql
+alter table memories enable row level security;
+
+create policy "User can manage their memories"
+on memories for all
+using (auth.uid() = user_id);
+```
+
+### Storage Setup
+
+1. Create `plamory` bucket
+2. Set permissions for image uploads and access
+
+---
+
+## 🚀 Vercel Deployment
+
+1. Connect your GitHub repository
+2. Add environment variables:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `OPENAI_API_KEY`
+3. Set build command: `npm run build`
+4. Deploy!
+
+---
+
+## 🔮 Potential Improvements
+
+- Implement **React Query** for data fetching
+- Add **virtual scrolling** for memory feed
+- Add **image compression** before upload
+- Implement proper **error boundaries**
+
+---
+
+## 📬 Feedback Welcome!
+
+This project reflects my approach to building production-ready applications. I’d love to discuss:
+
+- Alternative state management strategies
+- Performance optimization opportunities
+- Enhanced security considerations
+
+---
+
+_"Good software, like wine, takes time and careful crafting."_ 🍷
