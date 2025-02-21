@@ -1,5 +1,7 @@
 # Plamory - AI-Powered Memory Management
 
+# [🚀 Try Plamory Live](https://plamory.site)
+
 ![Plamory Demo Banner](/public/about/screenshot-1.png)
 
 ## 🌟 Overview
@@ -174,7 +176,7 @@ using (auth.uid() = user_id);
 
 ## 📬 Feedback Welcome!
 
-This project reflects my approach to building production-ready applications. I’d love to discuss:
+This project reflects my approach to building production-ready applications. I'd love to discuss:
 
 - Alternative state management strategies
 - Performance optimization opportunities
