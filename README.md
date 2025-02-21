@@ -83,7 +83,7 @@ utils/                # Helper functions
 
 ### Video Demo
 
-![Watch Demo](https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/video/demo.mp4)
+[Watch Demo](https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/video/demo.mp4)
 
 ---
 
