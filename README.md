@@ -86,6 +86,9 @@ Feed Page
 New Memory Dialog
 ![Screenshot 2](/public/about/screenshot-2.png)
 
+Video Demo
+![Video Demo Link](https://tuogqtvpasmyytgswncm.supabase.co/storage/v1/object/public/plamory/public/video/demo.mp4)
+
 ## **Potential Improvements**
 
 - Implement React Query for data fetching
